@@ -65,8 +65,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
 });
 
 function adjustSize(img) {
+
     if (img.naturalWidth > img.naturalHeight) {
-        img.style.width = '400%';
+        img.style.width = (img.naturalWidth / img.naturalHeight) * 300 + '%';
     } else {
         img.style.width = '200%';
     }
