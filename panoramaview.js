@@ -53,16 +53,29 @@ document.addEventListener("DOMContentLoaded", function (event) {
             viewPosition++;
         }
         viewImg.src = urls[viewPosition];
+        adjustSize(viewImg);
     });
     document.getElementById("prev").addEventListener('click', function (event) {
         if (viewPosition > 0) {
             viewPosition--;
         }
         viewImg.src = urls[viewPosition];
+        adjustSize(viewImg);
     });
 });
 
-function hideAddressBar () {
+function adjustSize(img) {
+    var width = img.naturalWidth;
+    var height = img.naturalHeight;
+    if (img.naturalWidth > img.naturalHeight) {
+        img.style.width = '400%';
+    } else {
+        img.style.width = '200%';
+    }
+}
+
+
+function hideAddressBar() {
     document.body.style.height = "3000px";	//ダミーの高さを設定
     document.body.style.minHeight = "";
 
