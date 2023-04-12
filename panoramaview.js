@@ -10,9 +10,8 @@ const moveCoe = 1;
 document.addEventListener("DOMContentLoaded", function (event) {
     var viewImg = document.getElementById("viewImg");
     viewImg.style.rotate = '0deg';
-    setTimeout(function () {
-        window.scrollTo(0, 9000);
-    }, 500);
+    hideAddressBar();
+    window.addEventListener("orientationchange", hideAddressBar);
     window.addEventListener("devicemotion", function (event) {
         const cStyle = window.getComputedStyle(viewImg);
         //move.innerText = event.acceleration.x + "/" + event.acceleration.y;
@@ -63,3 +62,17 @@ document.addEventListener("DOMContentLoaded", function (event) {
     });
 });
 
+function hideAddressBar () {
+    document.body.style.height = "3000px";	//ダミーの高さを設定
+    document.body.style.minHeight = "";
+
+    setTimeout(function () {
+        window.scrollTo(0, 1);	//アドレスバーを隠す
+
+        setTimeout(function () {
+            //bodyの最低サイズを設定
+            document.body.style.minHeight = window.innerHeight + document.body.scrollTop + "px";
+            document.body.style.height = "auto";	//高さを戻す
+        }, 500);
+    }, 100);
+}
