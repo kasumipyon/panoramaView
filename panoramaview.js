@@ -9,6 +9,7 @@ var viewPosition = 0;
 const moveCoe = 1;
 document.addEventListener("DOMContentLoaded", function (event) {
     var viewImg = document.getElementById("viewImg");
+    adjustSize(viewImg);
     viewImg.style.rotate = '0deg';
     hideAddressBar();
     window.addEventListener("orientationchange", hideAddressBar);
@@ -40,12 +41,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
 
         viewImg.src = urls[viewPosition];
+        adjustSize(viewImg);
     });
     document.getElementById("home").addEventListener('click', function (event) {
         viewImg.style.marginLeft = '-100%';
         viewImg.style.marginTop = '-100%';
-
-
         first = true;
     });
     document.getElementById("next").addEventListener('click', function (event) {
