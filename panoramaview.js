@@ -9,14 +9,13 @@ var viewPosition = 0;
 const moveCoe = 1;
 document.addEventListener("DOMContentLoaded", function (event) {
     var viewImg = document.getElementById("viewImg");
-    viewImg.style.rotate = '50deg';
     //var move = document.getElementById("move");
     window.addEventListener("devicemotion", function (event) {
         const cStyle = window.getComputedStyle(viewImg);
         //move.innerText = event.acceleration.x + "/" + event.acceleration.y;
         viewImg.style.marginLeft = parseInt(cStyle.marginLeft) + ((event.rotationRate.beta) * moveCoe) + 'px';
         viewImg.style.marginTop = parseInt(cStyle.marginTop) + ((event.rotationRate.alpha) * moveCoe) + 'px';
-        //viewImg.style.rotate = parseInt(cStyle.rotate) + ((event.rotationRate.gamma * 60)) + 'deg';
+        viewImg.style.rotate = parseFloat(cStyle.rotate) + ((event.rotationRate.gamma) * 60) + 'deg';
         //move.innerText = event.acceleration.x + '/' + event.acceleration.y;
         /*        viewImg.style.
                     event.rotationRate.alpha
