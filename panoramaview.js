@@ -10,12 +10,13 @@ const moveCoe = 1;
 document.addEventListener("DOMContentLoaded", function (event) {
     var viewImg = document.getElementById("viewImg");
     //var move = document.getElementById("move");
+    viewImg.style.rotate = '0deg';
     window.addEventListener("devicemotion", function (event) {
         const cStyle = window.getComputedStyle(viewImg);
         //move.innerText = event.acceleration.x + "/" + event.acceleration.y;
         viewImg.style.marginLeft = parseInt(cStyle.marginLeft) + ((event.rotationRate.beta) * moveCoe) + 'px';
         viewImg.style.marginTop = parseInt(cStyle.marginTop) + ((event.rotationRate.alpha) * moveCoe) + 'px';
-        viewImg.style.rotate = parseFloat(cStyle.rotate) + ((event.rotationRate.gamma) * 40) + 'deg';
+        viewImg.style.rotate = parseFloat(cStyle.rotate) + ((event.rotationRate.gamma) ) + 'deg';
         //move.innerText = event.acceleration.x + '/' + event.acceleration.y;
         /*        viewImg.style.
                     event.rotationRate.alpha
