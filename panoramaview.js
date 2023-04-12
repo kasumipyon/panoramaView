@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         //move.innerText = event.acceleration.x + "/" + event.acceleration.y;
         viewImg.style.marginLeft = parseInt(cStyle.marginLeft) + ((event.rotationRate.beta) * moveCoe) + 'px';
         viewImg.style.marginTop = parseInt(cStyle.marginTop) + ((event.rotationRate.alpha) * moveCoe) + 'px';
-        viewImg.style.rotate = parseFloat(cStyle.rotate) + ((event.rotationRate.gamma) * 30) + 'deg';
+        viewImg.style.rotate = parseFloat(cStyle.rotate) + ((event.rotationRate.gamma) * 40) + 'deg';
         //move.innerText = event.acceleration.x + '/' + event.acceleration.y;
         /*        viewImg.style.
                     event.rotationRate.alpha
@@ -34,7 +34,15 @@ document.addEventListener("DOMContentLoaded", function (event) {
     document.getElementById("home").addEventListener('click', function (event) {
         viewImg.style.marginLeft = '-200%';
         viewImg.style.marginTop = '-200%';
-        viewImg.style.rotate = '0deg';
+
+        var orientation = screen.orientation || screen.mozOrientation || screen.msOrientation;
+
+        if (orientation.type === "portrait-primary" || orientation.type === "portrait-secondary") {
+            viewImg.style.rotate = window.orientation + 'deg';
+        } else {
+            viewImg.style.rotate = window.orientation + 90 + 'deg';
+        }
+
         first = true;
     });
     document.getElementById("next").addEventListener('click', function (event) {
