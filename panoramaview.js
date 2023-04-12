@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         //move.innerText = event.acceleration.x + "/" + event.acceleration.y;
         viewImg.style.marginLeft = parseInt(cStyle.marginLeft) + ((event.rotationRate.beta) * moveCoe) + 'px';
         viewImg.style.marginTop = parseInt(cStyle.marginTop) + ((event.rotationRate.alpha) * moveCoe) + 'px';
-        viewImg.style.rotate = parseInt(cStyle.rotate) + ((event.rotationRate.gamma)) + 'deg';
+        viewImg.style.rotate = parseInt(cStyle.rotate) + ((event.rotationRate.gamma * 10)) + 'deg';
         //move.innerText = event.acceleration.x + '/' + event.acceleration.y;
         /*        viewImg.style.
                     event.rotationRate.alpha
