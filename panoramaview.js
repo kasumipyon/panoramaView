@@ -9,32 +9,26 @@ var viewPosition = 0;
 const moveCoe = 1;
 document.addEventListener("DOMContentLoaded", function (event) {
     var viewImg = document.getElementById("viewImg");
-    //var move = document.getElementById("move");
     viewImg.style.rotate = '0deg';
-    window.addEventListener("orientationchange", function (event) {
+
+    window.addEventListener("devicemotion", function (event) {
+        const cStyle = window.getComputedStyle(viewImg);
+        //move.innerText = event.acceleration.x + "/" + event.acceleration.y;
+
         let angle = screen && screen.orientation && screen.orientation.angle;
         if (angle === undefined) {
             angle = window.orientation;    // iOS用
         }
 
         if (angle == 0 || angle == 180) {
-            viewImg.style.rotate = window.orientation + 'deg';
+            viewImg.style.marginLeft = parseInt(cStyle.marginLeft) + ((event.rotationRate.beta) * moveCoe) + 'px';
+            viewImg.style.marginTop = parseInt(cStyle.marginTop) + ((event.rotationRate.alpha) * moveCoe) + 'px';
         } else {
-            viewImg.style.rotate = window.orientation + 90 + 'deg';
+            viewImg.style.marginLeft = parseInt(cStyle.marginLeft) + ((event.rotationRate.alpha) * moveCoe) + 'px';
+            viewImg.style.marginTop = parseInt(cStyle.marginTop) + ((event.rotationRate.beta) * moveCoe) + 'px';
         }
-    });
 
 
-    window.addEventListener("devicemotion", function (event) {
-        const cStyle = window.getComputedStyle(viewImg);
-        //move.innerText = event.acceleration.x + "/" + event.acceleration.y;
-        viewImg.style.marginLeft = parseInt(cStyle.marginLeft) + ((event.rotationRate.beta) * moveCoe) + 'px';
-        viewImg.style.marginTop = parseInt(cStyle.marginTop) + ((event.rotationRate.alpha) * moveCoe) + 'px';
-        //viewImg.style.rotate = parseFloat(cStyle.rotate) + ((event.rotationRate.gamma) ) + 'deg';
-        //move.innerText = event.acceleration.x + '/' + event.acceleration.y;
-        /*        viewImg.style.
-                    event.rotationRate.alpha
-                    */
     });
     viewImg.src = urls[viewPosition];
 
@@ -50,16 +44,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
         viewImg.style.marginLeft = '-200%';
         viewImg.style.marginTop = '-200%';
 
-        let angle = screen && screen.orientation && screen.orientation.angle;
-        if (angle === undefined) {
-            angle = window.orientation;    // iOS用
-        }
-
-        if (angle == 0 || angle == 180) {
-            viewImg.style.rotate = window.orientation + 'deg';
-        } else {
-            viewImg.style.rotate = window.orientation + 90 + 'deg';
-        }
 
         first = true;
     });
