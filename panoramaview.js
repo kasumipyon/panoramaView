@@ -42,8 +42,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
         viewImg.src = urls[viewPosition];
     });
     document.getElementById("home").addEventListener('click', function (event) {
-        viewImg.style.marginLeft = '-200%';
-        viewImg.style.marginTop = '-200%';
+        viewImg.style.marginLeft = '-100%';
+        viewImg.style.marginTop = '-100%';
 
 
         first = true;
