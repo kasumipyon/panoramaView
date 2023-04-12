@@ -11,12 +11,23 @@ document.addEventListener("DOMContentLoaded", function (event) {
     var viewImg = document.getElementById("viewImg");
     //var move = document.getElementById("move");
     viewImg.style.rotate = '0deg';
+    window.addEventListener("orientationchange", function (event) {
+        var orientation = screen.orientation || screen.mozOrientation || screen.msOrientation;
+
+        if (orientation.type === "portrait-primary" || orientation.type === "portrait-secondary") {
+            viewImg.style.rotate = window.orientation + 'deg';
+        } else {
+            viewImg.style.rotate = window.orientation + 90 + 'deg';
+        }
+    });
+
+
     window.addEventListener("devicemotion", function (event) {
         const cStyle = window.getComputedStyle(viewImg);
         //move.innerText = event.acceleration.x + "/" + event.acceleration.y;
         viewImg.style.marginLeft = parseInt(cStyle.marginLeft) + ((event.rotationRate.beta) * moveCoe) + 'px';
         viewImg.style.marginTop = parseInt(cStyle.marginTop) + ((event.rotationRate.alpha) * moveCoe) + 'px';
-        viewImg.style.rotate = parseFloat(cStyle.rotate) + ((event.rotationRate.gamma) ) + 'deg';
+        //viewImg.style.rotate = parseFloat(cStyle.rotate) + ((event.rotationRate.gamma) ) + 'deg';
         //move.innerText = event.acceleration.x + '/' + event.acceleration.y;
         /*        viewImg.style.
                     event.rotationRate.alpha
