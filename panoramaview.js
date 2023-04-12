@@ -7,6 +7,8 @@ panorama view
 var urls = ['sample.png'];
 var viewPosition = 0;
 const moveCoe = 1;
+var viewImg = document.getElementById("viewImg");
+viewImg.style.rotate = '50deg';
 document.addEventListener("DOMContentLoaded", function (event) {
     var viewImg = document.getElementById("viewImg");
     //var move = document.getElementById("move");
@@ -15,7 +17,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
         //move.innerText = event.acceleration.x + "/" + event.acceleration.y;
         viewImg.style.marginLeft = parseInt(cStyle.marginLeft) + ((event.rotationRate.beta) * moveCoe) + 'px';
         viewImg.style.marginTop = parseInt(cStyle.marginTop) + ((event.rotationRate.alpha) * moveCoe) + 'px';
-        viewImg.style.rotate = '50deg';
         //viewImg.style.rotate = parseInt(cStyle.rotate) + ((event.rotationRate.gamma * 60)) + 'deg';
         //move.innerText = event.acceleration.x + '/' + event.acceleration.y;
         /*        viewImg.style.
