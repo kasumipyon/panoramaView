@@ -34,6 +34,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     document.getElementById("home").addEventListener('click', function (event) {
         viewImg.style.marginLeft = '-200%';
         viewImg.style.marginTop = '-200%';
+        viewImg.style.rotate = '0deg';
         first = true;
     });
     document.getElementById("next").addEventListener('click', function (event) {
