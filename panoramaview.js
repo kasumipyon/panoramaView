@@ -9,7 +9,6 @@ var viewPosition = 0;
 const moveCoe = 1;
 document.addEventListener("DOMContentLoaded", function (event) {
     var viewImg = document.getElementById("viewImg");
-    adjustSize(viewImg);
     viewImg.style.rotate = '0deg';
     hideAddressBar();
     window.addEventListener("orientationchange", hideAddressBar);
@@ -33,6 +32,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     });
     viewImg.src = urls[viewPosition];
+    adjustSize(viewImg);
 
     document.getElementById("selmulti").addEventListener('change', function (event) {
         viewPosition = urls.length;
@@ -70,9 +70,8 @@ function adjustSize(img) {
     } else {
         img.style.width = '200%';
     }
-    const cStyle = window.getComputedStyle(viewImg);
-    viewImg.style.marginLeft = ((img.clientWidth - screen.width) / 2) * -1;
-    viewImg.style.marginTop = ((img.clientHeight - screen.height) / 2) * -1;
+    viewImg.style.marginLeft = ((img.clientWidth - screen.width) / 2) * -1 + 'px';
+    viewImg.style.marginTop = ((img.clientHeight - screen.height) / 2) * -1 + 'px';
 
 }
 
