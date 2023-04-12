@@ -12,9 +12,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
     //var move = document.getElementById("move");
     viewImg.style.rotate = '0deg';
     window.addEventListener("orientationchange", function (event) {
-        var orientation = screen.orientation || screen.mozOrientation || screen.msOrientation;
+        let angle = screen && screen.orientation && screen.orientation.angle;
+        if (angle === undefined) {
+            angle = window.orientation;    // iOS用
+        }
 
-        if (orientation.type === "portrait-primary" || orientation.type === "portrait-secondary") {
+        if (angle == 0 || angle == 180) {
             viewImg.style.rotate = window.orientation + 'deg';
         } else {
             viewImg.style.rotate = window.orientation + 90 + 'deg';
@@ -47,9 +50,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
         viewImg.style.marginLeft = '-200%';
         viewImg.style.marginTop = '-200%';
 
-        var orientation = screen.orientation || screen.mozOrientation || screen.msOrientation;
+        let angle = screen && screen.orientation && screen.orientation.angle;
+        if (angle === undefined) {
+            angle = window.orientation;    // iOS用
+        }
 
-        if (orientation.type === "portrait-primary" || orientation.type === "portrait-secondary") {
+        if (angle == 0 || angle == 180) {
             viewImg.style.rotate = window.orientation + 'deg';
         } else {
             viewImg.style.rotate = window.orientation + 90 + 'deg';
