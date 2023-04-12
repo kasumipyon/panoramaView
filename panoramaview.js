@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     viewImg.style.rotate = '0deg';
     setTimeout(function () {
         window.scrollTo(0, 9000);
-    }, 1);
+    }, 500);
     window.addEventListener("devicemotion", function (event) {
         const cStyle = window.getComputedStyle(viewImg);
         //move.innerText = event.acceleration.x + "/" + event.acceleration.y;
