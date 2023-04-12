@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     var viewImg = document.getElementById("viewImg");
     viewImg.style.rotate = '0deg';
     setTimeout(function () {
-        window.scrollTo(0, 100);
+        window.scrollTo(0, 9000);
     }, 1);
     window.addEventListener("devicemotion", function (event) {
         const cStyle = window.getComputedStyle(viewImg);
