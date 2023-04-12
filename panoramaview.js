@@ -10,7 +10,9 @@ const moveCoe = 1;
 document.addEventListener("DOMContentLoaded", function (event) {
     var viewImg = document.getElementById("viewImg");
     viewImg.style.rotate = '0deg';
-    window.scrollTo(0,0);
+    setTimeout(function () {
+        window.scrollTo(0, 1);
+    }, 1);
     window.addEventListener("devicemotion", function (event) {
         const cStyle = window.getComputedStyle(viewImg);
         //move.innerText = event.acceleration.x + "/" + event.acceleration.y;
