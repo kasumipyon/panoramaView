@@ -65,13 +65,15 @@ document.addEventListener("DOMContentLoaded", function (event) {
 });
 
 function adjustSize(img) {
-    var width = img.naturalWidth;
-    var height = img.naturalHeight;
     if (img.naturalWidth > img.naturalHeight) {
         img.style.width = '400%';
     } else {
         img.style.width = '200%';
     }
+    const cStyle = window.getComputedStyle(viewImg);
+    viewImg.style.marginLeft = ((img.clientWidth - screen.width) / 2) * -1;
+    viewImg.style.marginTop = ((img.clientHeight - screen.height) / 2) * -1;
+
 }
 
 
