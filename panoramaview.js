@@ -7,10 +7,9 @@ panorama view
 var urls = ['sample.png'];
 var viewPosition = 0;
 const moveCoe = 1;
-var viewImg = document.getElementById("viewImg");
-viewImg.style.rotate = '50deg';
 document.addEventListener("DOMContentLoaded", function (event) {
     var viewImg = document.getElementById("viewImg");
+    viewImg.style.rotate = '50deg';
     //var move = document.getElementById("move");
     window.addEventListener("devicemotion", function (event) {
         const cStyle = window.getComputedStyle(viewImg);
