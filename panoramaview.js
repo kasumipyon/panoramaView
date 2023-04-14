@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             viewImg.style.marginTop = parseInt(cStyle.marginTop) + ((event.rotationRate.alpha) * nowCoe) + 'px';
         } else {
             viewImg.style.marginLeft = parseInt(cStyle.marginLeft) + ((event.rotationRate.alpha) * nowCoe) + 'px';
-            viewImg.style.marginTop = parseInt(cStyle.marginTop) + ((event.rotationRate.beta) * nowCoe) + 'px';
+            viewImg.style.marginTop = parseInt(cStyle.marginTop) - ((event.rotationRate.beta) * nowCoe) + 'px';
         }
 
 
@@ -44,9 +44,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         adjustSize(viewImg);
     });
     document.getElementById("home").addEventListener('click', function (event) {
-        viewImg.style.marginLeft = '-100%';
-        viewImg.style.marginTop = '-100%';
-        first = true;
+        adjustSize(viewImg);
     });
     document.getElementById("next").addEventListener('click', function (event) {
         if (viewPosition < (urls.length - 1)) {
