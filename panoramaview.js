@@ -8,12 +8,31 @@ var urls = ['sample.png'];
 var viewPosition = 0;
 const moveCoe = 1;
 document.addEventListener("DOMContentLoaded", function (event) {
-    requestDeviceMotionPermission();
-    var viewImg = document.getElementById("viewImg");
-    viewImg.style.rotate = '0deg';
-    hideAddressBar();
-    window.addEventListener("orientationchange", hideAddressBar);
-    window.addEventListener("devicemotion", function (event) {
+    const requestDeviceMotionPermission = () => {
+        if (
+            DeviceMotionEvent &&
+            typeof DeviceMotionEvent.requestPermission === 'function'
+        ) {
+            // iOS 13+ の Safari
+            // 許可を取得
+            DeviceMotionEvent.requestPermission()
+                .then(permissionState => {
+                    if (permissionState === 'granted') {
+                        // 許可を得られた場合、devicemotionをイベントリスナーに追加
+                        window.addEventListener('devicemotion', e => {
+                            // devicemotionのイベント処理
+                            deviceMotion(e);
+                        })
+                    } else {
+                        // 許可を得られなかった場合の処理
+                    }
+                })
+                .catch(console.error) // https通信でない場合などで許可を取得できなかった場合
+        } else {
+            // 上記以外のブラウザ
+        }
+    }
+    function deviceMotion(event){
         const cStyle = window.getComputedStyle(viewImg);
         //move.innerText = event.acceleration.x + "/" + event.acceleration.y;
 
@@ -29,9 +48,15 @@ document.addEventListener("DOMContentLoaded", function (event) {
             viewImg.style.marginLeft = parseInt(cStyle.marginLeft) + ((event.rotationRate.alpha) * nowCoe) + 'px';
             viewImg.style.marginTop = parseInt(cStyle.marginTop) - ((event.rotationRate.beta) * nowCoe) + 'px';
         }
-
-
+    }
+    var viewImg = document.getElementById("viewImg");
+    viewImg.style.rotate = '0deg';
+    hideAddressBar();
+    window.addEventListener("orientationchange", hideAddressBar);
+    window.addEventListener("devicemotion", function (event) {
+        deviceMotion(event);
     });
+
     viewImg.src = urls[viewPosition];
     adjustSize(viewImg);
 
@@ -91,26 +116,3 @@ function hideAddressBar() {
     }, 100);
 }
 
-const requestDeviceMotionPermission = () => {
-    if (
-        DeviceMotionEvent &&
-        typeof DeviceMotionEvent.requestPermission === 'function'
-    ) {
-        // iOS 13+ の Safari
-        // 許可を取得
-        DeviceMotionEvent.requestPermission()
-            .then(permissionState => {
-                if (permissionState === 'granted') {
-                    // 許可を得られた場合、devicemotionをイベントリスナーに追加
-                    window.addEventListener('devicemotion', e => {
-                        // devicemotionのイベント処理
-                    })
-        } else {
-                    // 許可を得られなかった場合の処理
-                }
-            })
-            .catch(console.error) // https通信でない場合などで許可を取得できなかった場合
-    } else {
-        // 上記以外のブラウザ
-    }
-}
