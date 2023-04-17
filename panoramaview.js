@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             // 上記以外のブラウザ
         }
     }
-    function deviceMotion(event){
+    function deviceMotion(event) {
         const cStyle = window.getComputedStyle(viewImg);
         //move.innerText = event.acceleration.x + "/" + event.acceleration.y;
 
@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         if (angle === undefined) {
             angle = window.orientation;    // iOS用
         }
-        let nowCoe = moveCoe / window.devicePixelRatio;
+        let nowCoe = moveCoe / (document.body.clientWidth / window.innerWidth);
         if (angle == 0 || angle == 180) {
             viewImg.style.marginLeft = parseInt(cStyle.marginLeft) + ((event.rotationRate.beta) * nowCoe) + 'px';
             viewImg.style.marginTop = parseInt(cStyle.marginTop) + ((event.rotationRate.alpha) * nowCoe) + 'px';
