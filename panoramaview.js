@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         if (angle === undefined) {
             angle = window.orientation;    // iOS用
         }
-        let nowCoe = (moveCoe / (document.body.clientWidth / window.innerWidth)) * 0.25;
+        let nowCoe = (moveCoe * (document.body.clientWidth / window.innerWidth)) * 0.25;
         if (angle == 0 || angle == 180) {
             viewImg.style.marginLeft = parseInt(cStyle.marginLeft) + ((event.rotationRate.beta) * nowCoe) + 'px';
             viewImg.style.marginTop = parseInt(cStyle.marginTop) + ((event.rotationRate.alpha) * nowCoe) + 'px';
