@@ -72,6 +72,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
     document.getElementById("home").addEventListener('click', function (event) {
         adjustSize(viewImg);
     });
+    document.getElementById("useIphone").addEventListener('click', function (event) {
+        requestDeviceMotionPermission();
+    });
     document.getElementById("next").addEventListener('click', function (event) {
         if (viewPosition < (urls.length - 1)) {
             viewPosition++;
