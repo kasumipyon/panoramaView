@@ -101,11 +101,13 @@ const requestDeviceMotionPermission = () => {
         DeviceMotionEvent.requestPermission()
             .then(permissionState => {
                 if (permissionState === 'granted') {
-                    // 許可を得られた場合、devicemotionをイベントリスナーに追加
-                    window.addEventListener('devicemotion', e => {
+                    /*
+                       // 許可を得られた場合、devicemotionをイベントリスナーに追加
+                        window.addEventListener('devicemotion', e => {
                         // devicemotionのイベント処理
-                    }）
-        } else {
+                    })
+                                */
+                } else {
                     // 許可を得られなかった場合の処理
                 }
             })
