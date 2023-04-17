@@ -4,7 +4,7 @@ panorama view
 
 
 */
-var urls = ['sample.png'];
+var urls = ['https://fantia.jp/posts/1880253/post_content_photo/12401771','sample.png'];
 var viewPosition = 0;
 const moveCoe = 1;
 document.addEventListener("DOMContentLoaded", function (event) {
