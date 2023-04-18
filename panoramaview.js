@@ -49,12 +49,20 @@ document.addEventListener("DOMContentLoaded", function (event) {
             angle = window.orientation;    // iOS用
         }
         if (angle == 0) {
-            if ((event.accelerationIncludingGravity.y > -1) & (event.accelerationIncludingGravity.y < 1)) {
-                contentEl.style.rotate = '90deg';
-                angle = 180;
-            }else{
-                contentEl.style.rotate = '0deg';
-                angle = 0;
+            if ((event.accelerationIncludingGravity.y < 3)) {
+                if (contentEl.style.rotate == '0deg') {
+                    contentEl.style.rotate = '90deg';
+                    contentEl.style.width = window.screen.height + 'px';
+                    contentEl.style.height = window.screen.width + 'px';
+                    adjustSize();
+                }
+            } else {
+                if (contentEl.style.rotate == '90deg') {
+                    contentEl.style.rotate = '0deg';
+                    contentEl.style.width = window.screen.width + 'px';
+                    contentEl.style.height = window.screen.height + 'px';
+                    adjustSize();
+                }
             }
         }
 
@@ -163,9 +171,13 @@ function adjustSize(img) {
     } else {
         img.style.width = '200%';
     }
-    viewImg.style.marginLeft = ((img.clientWidth - screen.width) / 2) * -1 + 'px';
-    viewImg.style.marginTop = ((img.clientHeight - screen.height) / 2) * -1 + 'px';
-
+    if (contentEl.style.rotate == '0deg') {
+        viewImg.style.marginLeft = ((img.clientWidth - screen.width) / 2) * -1 + 'px';
+        viewImg.style.marginTop = ((img.clientHeight - screen.height) / 2) * -1 + 'px';
+    } else {
+        viewImg.style.marginLeft = ((img.clientWidth - screen.height) / 2) * -1 + 'px';
+        viewImg.style.marginTop = ((img.clientHeight - screen.width) / 2) * -1 + 'px';
+    }
 }
 
 
