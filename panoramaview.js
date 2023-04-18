@@ -48,6 +48,17 @@ document.addEventListener("DOMContentLoaded", function (event) {
         if (angle === undefined) {
             angle = window.orientation;    // iOS用
         }
+        if (angle == 0) {
+            if ((event.accelerationIncludingGravity.y > -1) & (event.accelerationIncludingGravity.y < 1)) {
+                contentEl.style.rotate = '90deg';
+                angle = 180;
+            }else{
+                contentEl.style.rotate = '0deg';
+                angle = 0;
+            }
+        }
+
+
         let nowCoe = (moveCoe * (document.body.clientWidth / window.innerWidth)) * 0.25;
         if (angle == 0 || angle == 180) {
             viewImg.style.marginLeft = parseInt(cStyle.marginLeft) + parseInt((event.rotationRate.beta) * nowCoe) + 'px';
@@ -56,9 +67,20 @@ document.addEventListener("DOMContentLoaded", function (event) {
             viewImg.style.marginLeft = parseInt(cStyle.marginLeft) + ((event.rotationRate.alpha) * nowCoe) + 'px';
             viewImg.style.marginTop = parseInt(cStyle.marginTop) - ((event.rotationRate.beta) * nowCoe) + 'px';
         }
+        if (parseInt(viewImg.style.marginTop) > 0) {
+            viewImg.style.marginTop = '0px';
+        } else if (parseInt(viewImg.style.marginTop) < (screen.height - viewImg.clientHeight)) {
+            viewImg.style.marginTop = (screen.height - viewImg.clientHeight) + 'px';
+        }
+        if (parseInt(viewImg.style.marginLeft) > 0) {
+            viewImg.style.marginLeft = '0px';
+        } else if (parseInt(viewImg.style.marginLeft) < (screen.width - viewImg.clientWidth)) {
+            viewImg.style.marginLeft = (screen.width - viewImg.clientWidth) + 'px';
+        }
     }
     var viewImg = document.getElementById("viewImg");
-    viewImg.style.rotate = '0deg';
+    const contentEl = document.querySelector("div.content");
+    contentEl.style.rotate = '0deg';
     hideAddressBar();
     window.addEventListener("orientationchange", function (e) {
         adjustSize();
@@ -123,9 +145,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
         resetButtons();
     });
     document.getElementById("full").addEventListener('click', function (event) {
-        document.documentElement.requestFullscreen();
+        if (document.fullscreenElement == null) {
+            document.documentElement.requestFullscreen();
+        } else {
+            document.exitFullscreen();
+        }
     });
-        viewImg.addEventListener('click', function (event) {
+    viewImg.addEventListener('click', function (event) {
         resetButtons();
     });
 });

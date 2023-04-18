@@ -11,6 +11,7 @@ body {
 div.content {
     margin: 0;
     height: 100vh;
+    transition: 0.2s;
 }
 
 #view {
