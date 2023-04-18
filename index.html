@@ -4,10 +4,12 @@
 <head>
     <meta charset="UTF-8" />
     <!-- https://developer.mozilla.org/ja/docs/Web/HTTP/CSP -->
-    <meta http-equiv="Content-Security-Policy" content="default-src * blob: data: gap: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src * blob: data: gap: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <link href="index.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="panoramaview.js"></script>
     <title>パノラマビュー</title>
 </head>
@@ -18,10 +20,11 @@
             <img id="viewImg">
         </div>
         <div class="buttons">
-            <button id="home">原点復帰</button>
-            <input type="file" id="selmulti" multiple accept="image/*">
-            <button id="prev">＜＜</button>
-            <button id="next">＞＞</button>
+            <button id="home"><span class="material-icons">fit_screen</span></button>
+            <button id="file"><span class="material-icons">file_download</span>
+                <input type="file" id="selmulti" multiple accept="image/*" class="hidden"></button>
+            <button id="prev"><span class="material-icons">navigate_before</span></button>
+            <button id="next"><span class="material-icons">navigate_next</span></button>
             <button id="useIphone">iPhoneで使う</button>
         </div>
     </div>

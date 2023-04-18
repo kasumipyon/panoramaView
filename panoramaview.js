@@ -8,6 +8,14 @@ var urls = ['sample.png'];
 var viewPosition = 0;
 const moveCoe = 1;
 document.addEventListener("DOMContentLoaded", function (event) {
+    if (isiPhone()) {
+        document.getElementById("useIphone").addEventListener('click', function (event) {
+            requestDeviceMotionPermission();
+        });
+    } else {
+        document.getElementById("useIphone").remove();
+    }
+
     const requestDeviceMotionPermission = () => {
         if (
             DeviceMotionEvent &&
@@ -52,14 +60,36 @@ document.addEventListener("DOMContentLoaded", function (event) {
     var viewImg = document.getElementById("viewImg");
     viewImg.style.rotate = '0deg';
     hideAddressBar();
-    window.addEventListener("orientationchange", hideAddressBar);
+    window.addEventListener("orientationchange", function (e) {
+        adjustSize();
+        hideAddressBar();
+    });
     window.addEventListener("devicemotion", function (event) {
         deviceMotion(event);
     });
 
-    viewImg.src = urls[viewPosition];
-    adjustSize(viewImg);
+    viewImg.addEventListener("load", function (event) {
+        adjustSize(viewImg);
+    });
 
+    viewImg.src = urls[viewPosition];
+    const buttonsEl = document.querySelector("div.buttons");
+    var buttonsOut;
+    adjustSize(viewImg);
+    resetButtons();
+    navChange()
+    function resetButtons() {
+        buttonsEl.classList.remove('fadeout');
+        clearInterval(buttonsOut);
+        buttonsOut = setTimeout(function () {
+            buttonsEl.classList.add('fadeout');
+        }, 2000);
+    }
+
+
+    document.getElementById("file").addEventListener('click', function (event) {
+        document.getElementById("selmulti").click();
+    });
     document.getElementById("selmulti").addEventListener('change', function (event) {
         viewPosition = urls.length;
         for (var i = 0; i < event.target.files.length; i++) {
@@ -67,19 +97,20 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
 
         viewImg.src = urls[viewPosition];
-        adjustSize(viewImg);
+        navChange()
+        resetButtons();
     });
     document.getElementById("home").addEventListener('click', function (event) {
         adjustSize(viewImg);
-    });
-    document.getElementById("useIphone").addEventListener('click', function (event) {
-        requestDeviceMotionPermission();
+        resetButtons();
     });
     document.getElementById("next").addEventListener('click', function (event) {
         if (viewPosition < (urls.length - 1)) {
             viewPosition++;
         }
         viewImg.src = urls[viewPosition];
+        resetButtons();
+        navChange()
         adjustSize(viewImg);
     });
     document.getElementById("prev").addEventListener('click', function (event) {
@@ -88,6 +119,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
         viewImg.src = urls[viewPosition];
         adjustSize(viewImg);
+        navChange()
+        resetButtons();
+    });
+    viewImg.addEventListener('click', function (event) {
+        resetButtons();
     });
 });
 
@@ -119,3 +155,26 @@ function hideAddressBar() {
     }, 100);
 }
 
+function isiPhone() {
+    if (navigator.userAgent.match(/iPad|iPhone|iPod/)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function navChange() {
+    if ((viewPosition == 0) & (urls.length <= (viewPosition + 1))) {
+        document.getElementById("prev").style.opacity = '0';
+        document.getElementById("next").style.opacity = '0';
+    } else if (viewPosition == 0) {
+        document.getElementById("prev").style.opacity = '0';
+        document.getElementById("next").style.opacity = '1';
+    } else if (urls.length <= (viewPosition + 1)) {
+        document.getElementById("prev").style.opacity = '1';
+        document.getElementById("next").style.opacity = '0';
+    } else {
+        document.getElementById("prev").style.opacity = '1';
+        document.getElementById("next").style.opacity = '1';
+    }
+}
