@@ -122,7 +122,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
         navChange()
         resetButtons();
     });
-    viewImg.addEventListener('click', function (event) {
+    document.getElementById("full").addEventListener('click', function (event) {
+        document.documentElement.requestFullscreen();
+    });
+        viewImg.addEventListener('click', function (event) {
         resetButtons();
     });
 });
