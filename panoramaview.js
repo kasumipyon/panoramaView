@@ -17,10 +17,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
 
 
-    hideAddressBar();
-    window.addEventListener("orientationchange", function (e) {
-        hideAddressBar();
-    });
     window.addEventListener("devicemotion", function (event) {
         if (document.querySelector('#views img.viewImg') != null) {
             deviceMotion(event);
@@ -119,21 +115,6 @@ function adjustSize(img) {
 }
 
 
-function hideAddressBar() {
-    document.body.style.height = "3000px";	//ダミーの高さを設定
-    document.body.style.minHeight = "";
-
-    setTimeout(function () {
-        window.scrollTo(0, 1);	//アドレスバーを隠す
-
-        setTimeout(function () {
-            //bodyの最低サイズを設定
-            document.body.style.minHeight = window.innerHeight + document.body.scrollTop + "px";
-            document.body.style.height = "auto";	//高さを戻す
-        }, 500);
-    }, 100);
-}
-
 
 
 
@@ -212,7 +193,7 @@ function deviceMotion(event) {
         angle = window.orientation;    // iOS用
     }
 
-    let nowCoe = (moveCoe * (document.body.clientWidth / window.innerWidth)) * 0.5;
+    let nowCoe = (moveCoe * (document.body.clientWidth / window.innerWidth)) * 1;
     if (angle == 0 || angle == 180) {
         viewImg.style.marginLeft = parseInt(cStyle.marginLeft) + parseInt((event.rotationRate.beta) * nowCoe) + 'px';
         viewImg.style.marginTop = parseInt(cStyle.marginTop) + parseInt((event.rotationRate.alpha) * nowCoe) + 'px';
