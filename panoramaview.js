@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         hideAddressBar();
     });
     window.addEventListener("devicemotion", function (event) {
-        if (document.fullscreenElement != null) {
+        if (document.querySelector('#views img.viewImg') != null) {
             deviceMotion(event);
         }
     });
