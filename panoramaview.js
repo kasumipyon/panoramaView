@@ -94,7 +94,9 @@ function setImgEvent(img) {
         if (img.classList.contains('viewImg')) {
             buttonResetFadeout();
         } else {
-            //document.documentElement.requestFullscreen();
+            if (isSmartPhone()) {
+                document.documentElement.requestFullscreen();
+            }
             if (isiPhone()) {
                 requestDeviceMotionPermission();
             }
@@ -148,7 +150,13 @@ function isiPhone() {
         return false;
     }
 }
-
+function isSmartPhone() {
+    if (navigator.userAgent.match(/iPhone|Android.+Mobile/)) {
+        return true;
+    } else {
+        return false;
+    }
+}
 const requestDeviceMotionPermission = () => {
     if (
         DeviceMotionEvent &&
