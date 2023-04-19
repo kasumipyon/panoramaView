@@ -14,29 +14,37 @@ div.content {
     transition: 0.2s;
 }
 
-#view {
+#views {
+    display: flex;
+}
+
+#views>* {
+    flex: 1;
+    margin: 2px;
+    border-radius: 0;
+    border: none;
+}
+
+#views img {
+    object-fit: contain;
+    transition: 0.2s;
+}
+
+#views img.viewImg {
+    max-width: none;
     position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    height: 100vh;
-    overflow: hidden;
+    z-index: 0;
 }
 
 #move {
     background-color: white;
 }
 
-#viewImg {
-    width: 100%;
-    margin-left: -100%;
-    margin-top: -100%;
-}
-
 div.buttons {
     position: absolute;
     bottom: 0;
     display: flex;
+    z-index: 100;
 }
 
 div.buttons>* {
@@ -61,13 +69,29 @@ span.material-icons {
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 @media (orientation: portrait) {
     div.buttons {
         width: 100%;
         height: 100px;
+    }
+
+    div.buttons>* {
+        max-width: 30%;
+    }
+
+    div.buttons>button>* {
+        rotate: 90deg;
+    }
+
+    #views>* {
+        max-width: 30%;
+    }
+
+    #views img.viewImg {
+        rotate: 90deg;
     }
 }
 
@@ -82,5 +106,9 @@ span.material-icons {
     div.buttons>* {
         display: block;
         width: 100px;
+    }
+
+    #views>* {
+        max-width: 20%;
     }
 }
