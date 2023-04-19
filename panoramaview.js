@@ -8,11 +8,7 @@ const moveCoe = 1;
 var buttonsOut;
 document.addEventListener("DOMContentLoaded", function (event) {
 
-    var urls = Cookies.get('urls');
-    if (urls == undefined) {
-        urls = ['sample.png'];
-    }
-
+    var urls =  ['sample.png'];
     for (let i = 0; i < urls.length; i++) {
         var el = document.createElement("img");
         el.src = urls[i]
@@ -47,7 +43,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
             document.getElementById('views').insertBefore(el, document.querySelector("#views>button"));
 
         }
-        setCookie();
         navChange();
     });
     document.getElementById("next").addEventListener('click', function (event) {
@@ -71,7 +66,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
         if (document.fullscreenElement !== null) {
             document.exitFullscreen();
         }
-        setCookie();
     });
 
     document.getElementById("exit").addEventListener('click', function (event) {
@@ -199,17 +193,6 @@ function navChange() {
         document.getElementById("next").style.opacity = '1';
     }
 }
-function setCookie() {
-    var urls = [];
-    for (const nowImg of document.querySelectorAll('#views img')) {
-        urls.push(nowImg.src);
-    }
-    Cookies.set('urls', urls, { expires: 30 });
-
-    //Cookieの保存名と値を指定
-    //cookies = 'urls=' + JSON.stringify(urls) + ';';
-
-}
 function buttonResetFadeout() {
     const buttonsEl = document.querySelector("div.buttons");
     buttonsEl.classList.remove('hidden');
@@ -237,7 +220,10 @@ function deviceMotion(event) {
         viewImg.style.marginLeft = parseInt(cStyle.marginLeft) + ((event.rotationRate.alpha) * nowCoe) + 'px';
         viewImg.style.marginTop = parseInt(cStyle.marginTop) - ((event.rotationRate.beta) * nowCoe) + 'px';
     }
-    if (parseInt(viewImg.style.marginTop) > 0) {
+/*
+    //画面端でとまる
+    const frameMargin = 30;
+    if (parseInt(viewImg.style.marginTop) > (frameMargin * -1)) {
         viewImg.style.marginTop = '0px';
     } else if (parseInt(viewImg.style.marginTop) < (screen.height - viewImg.clientHeight)) {
         viewImg.style.marginTop = (screen.height - viewImg.clientHeight) + 'px';
@@ -247,4 +233,5 @@ function deviceMotion(event) {
     } else if (parseInt(viewImg.style.marginLeft) < (screen.width - viewImg.clientWidth)) {
         viewImg.style.marginLeft = (screen.width - viewImg.clientWidth) + 'px';
     }
+    */
 }
