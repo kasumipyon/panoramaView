@@ -4,13 +4,11 @@ panorama view
 MIT licence
 
 */
-var urls;
-var viewPosition = 0;
 const moveCoe = 1;
 var buttonsOut;
 document.addEventListener("DOMContentLoaded", function (event) {
 
-    urls = Cookies.get('urls');
+    var urls = Cookies.get('urls');
     if (urls == undefined) {
         urls = ['sample.png'];
     }
@@ -42,20 +40,21 @@ document.addEventListener("DOMContentLoaded", function (event) {
         document.getElementById("selmulti").click();
     });
     document.getElementById("selmulti").addEventListener('change', function (event) {
-        viewPosition = urls.length;
         for (var i = 0; i < event.target.files.length; i++) {
-            urls.push(window.URL.createObjectURL(event.target.files[i]));
-        }
+            var el = document.createElement("img");
+            el.src = window.URL.createObjectURL(event.target.files[i]);
+            setImgEvent(el);
+            document.getElementById('views').insertBefore(el, document.querySelector("#views>button"));
 
-        viewImg.src = urls[viewPosition];
-        navChange()
-        buttonResetFadeout();
+        }
+        setCookie();
+        navChange();
     });
     document.getElementById("next").addEventListener('click', function (event) {
         if (viewPosition < (urls.length - 1)) {
             viewPosition++;
         }
-        viewImg.src = urls[viewPosition];
+        //viewImg.src = urls[viewPosition];
         buttonResetFadeout();
         navChange()
     });
@@ -67,6 +66,14 @@ document.addEventListener("DOMContentLoaded", function (event) {
         navChange()
         buttonResetFadeout();
     });
+    document.getElementById("delete").addEventListener('click', function (event) {
+        event.target.remove();
+        if (document.fullscreenElement !== null) {
+            document.exitFullscreen();
+        }
+        setCookie();
+    });
+
     document.getElementById("exit").addEventListener('click', function (event) {
         const img = document.querySelector("img.viewImg");
         img.classList.remove('viewImg');
@@ -74,7 +81,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
         img.style.width = null;
         img.style.marginTop = null;
         img.style.marginLeft = null;
-        document.exitFullscreen();
+        if (document.fullscreenElement !== null) {
+            document.exitFullscreen();
+        }
     });
 
 
@@ -85,7 +94,7 @@ function setImgEvent(img) {
         if (img.classList.contains('viewImg')) {
             buttonResetFadeout();
         } else {
-            document.documentElement.requestFullscreen();
+            //document.documentElement.requestFullscreen();
             if (isiPhone()) {
                 requestDeviceMotionPermission();
             }
@@ -99,11 +108,15 @@ function setImgEvent(img) {
 
 
 function adjustSize(img) {
+    var mWidth = screen.width;
+    if (screen.orientation.angle == 0) {
+        mWidth = screen.height;
+    }
 
     if (img.naturalWidth > img.naturalHeight) {
-        img.style.width = (img.naturalWidth / img.naturalHeight) * 300 + '%';
+        img.style.width = mWidth * (img.naturalWidth / img.naturalHeight) * 3 + 'px';
     } else {
-        img.style.width = '200%';
+        img.style.width = mWidth * 2 + 'px';
     }
     img.style.marginLeft = ((img.clientWidth - screen.width) / 2) * -1 + 'px';
     img.style.marginTop = ((img.clientHeight - screen.height) / 2) * -1 + 'px';
@@ -162,13 +175,15 @@ const requestDeviceMotionPermission = () => {
 }
 
 function navChange() {
-    if ((viewPosition == 0) & (urls.length <= (viewPosition + 1))) {
+    const length = document.querySelectorAll('#views img').length;
+    viewPosition = 0;
+    if ((viewPosition == 0) & (length <= (viewPosition + 1))) {
         document.getElementById("prev").style.opacity = '0';
         document.getElementById("next").style.opacity = '0';
     } else if (viewPosition == 0) {
         document.getElementById("prev").style.opacity = '0';
         document.getElementById("next").style.opacity = '1';
-    } else if (urls.length <= (viewPosition + 1)) {
+    } else if (length <= (viewPosition + 1)) {
         document.getElementById("prev").style.opacity = '1';
         document.getElementById("next").style.opacity = '0';
     } else {
@@ -177,26 +192,15 @@ function navChange() {
     }
 }
 function setCookie() {
+    var urls = [];
+    for (const nowImg of document.querySelectorAll('#views img')) {
+        urls.push(nowImg.src);
+    }
     Cookies.set('urls', urls, { expires: 30 });
-    let cookie = '';
-    let expire = '';
-    let period = '';
 
     //Cookieの保存名と値を指定
-    cookies = 'urls=' + JSON.stringify(urls) + ';';
+    //cookies = 'urls=' + JSON.stringify(urls) + ';';
 
-    //Cookieを保存するパスを指定
-    cookies += 'path=/ ;';
-
-    //Cookieを保存する期間を指定
-    period = 30; //保存日数
-    expire = new Date();
-    expire.setTime(expire.getTime() + 1000 * 3600 * 24 * period);
-    expire.toUTCString();
-    cookies += 'expires=' + expire + ';';
-
-    //Cookieを保存する
-    document.cookie = cookies;
 }
 function buttonResetFadeout() {
     const buttonsEl = document.querySelector("div.buttons");
@@ -208,6 +212,7 @@ function buttonResetFadeout() {
     }, 2000);
 }
 function deviceMotion(event) {
+    const viewImg = document.querySelector('#views img.viewImg');
     const cStyle = window.getComputedStyle(viewImg);
     //move.innerText = event.acceleration.x + "/" + event.acceleration.y;
 
