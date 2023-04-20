@@ -95,7 +95,7 @@ function setImgEvent(img) {
 
 
 function viewMotion(img) {
-    if (isSmartPhone()) {
+    if (isSmartPhone() & !isiPhone()) {
         document.documentElement.requestFullscreen();
     }
     img.classList.add('viewImg');
