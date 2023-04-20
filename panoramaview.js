@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     if (!isiPhone()) {
         window.addEventListener("devicemotion", function (event) {
-            if (document.querySelector('#views img.viewImg') != null) {
+            if (document.querySelector('#views div.viewImg') != null) {
                 deviceMotion(event);
             }
         });
