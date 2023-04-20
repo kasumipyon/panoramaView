@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 deviceMotion(event);
             }
         });
-
+        isiPhoneFirst = false;
     }
 
     var buttonsOut;
@@ -84,7 +84,7 @@ function setImgEvent(img) {
         if (img.classList.contains('viewImg')) {
             buttonResetFadeout();
         } else {
-            if (isiPhone()) {
+            if (isiPhoneFirst) {
                 requestDeviceMotionPermission(img);
             } else {
                 viewMotion(img);
