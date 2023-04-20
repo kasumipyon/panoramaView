@@ -122,8 +122,7 @@ function adjustSize(img) {
     if (img.naturalWidth > img.naturalHeight) {
         img.style.width = mWidth * (img.naturalWidth / img.naturalHeight) * 3 + 'px';
     } else {
-        //img.style.width = mWidth * 2 + 'px';
-        img.style.width = mWidth * 1 + 'px';
+        img.style.width = mWidth * 2 + 'px';
     }
 
     if (angle == 0) {
@@ -218,8 +217,8 @@ function deviceMotion(event) {
         angle = window.orientation;    // iOS用
     }
 
-    let nowCoe = (moveCoe * (document.body.clientWidth / window.innerWidth)) * 1;
-    //let nowCoe = moveCoe;
+    //let nowCoe = (moveCoe * (document.body.clientWidth / window.innerWidth)) * 3;
+    let nowCoe = 5;
     if (angle == 0 || angle == 180) {
         viewImg.style.marginLeft = parseInt(cStyle.marginLeft) + parseInt((event.rotationRate.beta) * nowCoe) + 'px';
         viewImg.style.marginTop = parseInt(cStyle.marginTop) + parseInt((event.rotationRate.alpha) * nowCoe) + 'px';
