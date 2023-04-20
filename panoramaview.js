@@ -122,7 +122,8 @@ function adjustSize(img) {
     if (img.naturalWidth > img.naturalHeight) {
         img.style.width = mWidth * (img.naturalWidth / img.naturalHeight) * 3 + 'px';
     } else {
-        img.style.width = mWidth * 2 + 'px';
+        //img.style.width = mWidth * 2 + 'px';
+        img.style.width = mWidth * 1 + 'px';
     }
 
     if (angle == 0) {
