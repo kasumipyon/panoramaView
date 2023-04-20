@@ -208,7 +208,7 @@ function buttonResetFadeout() {
     }, 2000);
 }
 function deviceMotion(event) {
-    const viewImg = document.querySelector('#views img.viewImg');
+    const viewImg = document.querySelector('#views div.viewImg img');
     const cStyle = window.getComputedStyle(viewImg);
     //move.innerText = event.acceleration.x + "/" + event.acceleration.y;
 
