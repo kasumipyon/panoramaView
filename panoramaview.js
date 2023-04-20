@@ -217,8 +217,8 @@ function deviceMotion(event) {
         angle = window.orientation;    // iOS用
     }
 
-    //let nowCoe = (moveCoe * (document.body.clientWidth / window.innerWidth)) * 1;
-    let nowCoe = moveCoe;
+    let nowCoe = (moveCoe * (document.body.clientWidth / window.innerWidth)) * 1;
+    //let nowCoe = moveCoe;
     if (angle == 0 || angle == 180) {
         viewImg.style.marginLeft = parseInt(cStyle.marginLeft) + parseInt((event.rotationRate.beta) * nowCoe) + 'px';
         viewImg.style.marginTop = parseInt(cStyle.marginTop) + parseInt((event.rotationRate.alpha) * nowCoe) + 'px';
