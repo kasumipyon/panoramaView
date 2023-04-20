@@ -46,6 +46,11 @@ div.content {
     overflow: hidden;
 }
 
+#views div.viewImg img {
+    height: auto;
+    transform-origin: top left;
+}
+
 #move {
     background-color: white;
 }

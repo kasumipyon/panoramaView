@@ -67,12 +67,14 @@ document.addEventListener("DOMContentLoaded", function (event) {
     });
 
     document.getElementById("exit").addEventListener('click', function (event) {
-        const img = document.querySelector("img.viewImg");
-        img.classList.remove('viewImg');
+        const viewDiv = document.querySelector("div.viewImg");
+        const img = document.querySelector("div.viewImg img");
+        viewDiv.classList.remove('viewImg');
         document.querySelector("div.buttons").classList.add('hidden');
         img.style.width = null;
         img.style.marginTop = null;
         img.style.marginLeft = null;
+        img.style.translate = null;
         if (document.fullscreenElement !== null) {
             document.exitFullscreen();
         }
@@ -83,7 +85,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
 function setImgEvent(img) {
     img.addEventListener('click', function (event) {
-        if (img.classList.contains('viewImg')) {
+        if (img.parentElement.classList.contains('viewImg')) {
             buttonResetFadeout();
         } else {
             if (isiPhoneFirst) {
@@ -98,7 +100,7 @@ function setImgEvent(img) {
 
 function viewMotion(img) {
     if (isSmartPhone() & !isiPhone()) {
-        document.documentElement.requestFullscreen();
+        //document.documentElement.requestFullscreen();
     }
     img.parentElement.classList.add('viewImg');
     buttonResetFadeout();
@@ -114,6 +116,7 @@ function adjustSize(img) {
 
     if (angle == 0) {
         mWidth = screen.height;
+        img.style.translate = screen.width + 'px ' + '0px';
     }
 
     if (img.naturalWidth > img.naturalHeight) {
@@ -121,8 +124,15 @@ function adjustSize(img) {
     } else {
         img.style.width = mWidth * 2 + 'px';
     }
-    img.style.marginLeft = ((img.clientWidth - screen.width) / 2) * -1 + 'px';
-    img.style.marginTop = ((img.clientHeight - screen.height) / 2) * -1 + 'px';
+
+    if (angle == 0) {
+        img.style.marginLeft = ((img.clientHeight - screen.height) / 2) * -1 + 'px';
+        img.style.marginTop = ((img.clientWidth - screen.width) / 2) * -1 + 'px';
+    } else {
+        img.style.marginLeft = ((img.clientWidth - screen.width) / 2) * -1 + 'px';
+        img.style.marginTop = ((img.clientHeight - screen.height) / 2) * -1 + 'px';
+
+    }
 }
 
 
