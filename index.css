@@ -23,17 +23,27 @@ div.content {
     margin: 2px;
     border-radius: 0;
     border: none;
+    max-height: 256px;
+    background-color: lightgray;
 }
 
 #views img {
     object-fit: contain;
     transition: 0.2s;
+    width: 100%;
+    height: 100%;
 }
 
-#views img.viewImg {
+#views div.viewImg {
     max-width: none;
+    max-height: none;
     position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
     z-index: 0;
+    overflow: hidden;
 }
 
 #move {
@@ -90,7 +100,7 @@ span.material-icons {
         max-width: 30%;
     }
 
-    #views img.viewImg {
+    #views div.viewImg>img {
         rotate: 90deg;
     }
 }

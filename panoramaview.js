@@ -11,10 +11,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     var urls = ['sample.png'];
     for (let i = 0; i < urls.length; i++) {
+        var div = document.createElement("div");
         var el = document.createElement("img");
+        div.appendChild(el);
         el.src = urls[i]
         setImgEvent(el);
-        document.getElementById('views').insertBefore(el, document.querySelector("#views>button"));
+        document.getElementById('views').insertBefore(div, document.querySelector("#views>button"));
     }
 
     if (!isiPhone()) {
@@ -98,7 +100,7 @@ function viewMotion(img) {
     if (isSmartPhone() & !isiPhone()) {
         document.documentElement.requestFullscreen();
     }
-    img.classList.add('viewImg');
+    img.parentElement.classList.add('viewImg');
     buttonResetFadeout();
     adjustSize(img);
 }
