@@ -217,7 +217,8 @@ function deviceMotion(event) {
         angle = window.orientation;    // iOS用
     }
 
-    let nowCoe = (moveCoe * (document.body.clientWidth / window.innerWidth)) * 1;
+    //let nowCoe = (moveCoe * (document.body.clientWidth / window.innerWidth)) * 1;
+    let nowCoe = moveCoe;
     if (angle == 0 || angle == 180) {
         viewImg.style.marginLeft = parseInt(cStyle.marginLeft) + parseInt((event.rotationRate.beta) * nowCoe) + 'px';
         viewImg.style.marginTop = parseInt(cStyle.marginTop) + parseInt((event.rotationRate.alpha) * nowCoe) + 'px';
@@ -225,18 +226,16 @@ function deviceMotion(event) {
         viewImg.style.marginLeft = parseInt(cStyle.marginLeft) + ((event.rotationRate.alpha) * nowCoe) + 'px';
         viewImg.style.marginTop = parseInt(cStyle.marginTop) - ((event.rotationRate.beta) * nowCoe) + 'px';
     }
-    /*
-        //画面端でとまる
-        const frameMargin = 30;
-        if (parseInt(viewImg.style.marginTop) > (frameMargin * -1)) {
-            viewImg.style.marginTop = '0px';
-        } else if (parseInt(viewImg.style.marginTop) < (screen.height - viewImg.clientHeight)) {
-            viewImg.style.marginTop = (screen.height - viewImg.clientHeight) + 'px';
-        }
-        if (parseInt(viewImg.style.marginLeft) > 0) {
-            viewImg.style.marginLeft = '0px';
-        } else if (parseInt(viewImg.style.marginLeft) < (screen.width - viewImg.clientWidth)) {
-            viewImg.style.marginLeft = (screen.width - viewImg.clientWidth) + 'px';
-        }
-        */
+    //画面端でとまる
+    const frameMargin = 30;
+    if (parseInt(viewImg.style.marginTop) > frameMargin) {
+        viewImg.style.marginTop = frameMargin + 'px';
+    } else if (parseInt(viewImg.style.marginTop) < (screen.height - viewImg.clientHeight)) {
+        viewImg.style.marginTop = (screen.height - viewImg.clientHeight) + 'px';
+    }
+    if (parseInt(viewImg.style.marginLeft) > 0) {
+        viewImg.style.marginLeft = '0px';
+    } else if (parseInt(viewImg.style.marginLeft) < (screen.width - viewImg.clientWidth)) {
+        viewImg.style.marginLeft = (screen.width - viewImg.clientWidth) + 'px';
+    }
 }
