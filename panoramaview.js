@@ -105,7 +105,12 @@ function viewMotion(img) {
 
 function adjustSize(img) {
     var mWidth = screen.width;
-    if (screen.orientation.angle == 0) {
+    let angle = screen && screen.orientation && screen.orientation.angle;
+    if (angle === undefined) {
+        angle = window.orientation;    // iOS用
+    }
+
+    if (angle == 0) {
         mWidth = screen.height;
     }
 
