@@ -95,7 +95,7 @@ function setImgEvent(img) {
 
 function viewMotion(img) {
     if (isSmartPhone() & !isiPhone()) {
-        //document.documentElement.requestFullscreen();
+        document.documentElement.requestFullscreen();
     }
     img.parentElement.classList.add('viewImg');
     buttonResetFadeout();
