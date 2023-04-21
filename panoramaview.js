@@ -130,10 +130,6 @@ function adjustSize(img) {
     }
 }
 
-
-
-
-
 function isiPhone() {
     if (navigator.userAgent.match(/iPad|iPhone|iPod/)) {
         return true;
@@ -232,5 +228,17 @@ function deviceMotion(event) {
     } else {
         viewImg.style.marginLeft = parseInt(cStyle.marginLeft) + ((event.rotationRate.alpha) * nowCoe) + 'px';
         viewImg.style.marginTop = parseInt(cStyle.marginTop) - ((event.rotationRate.beta) * nowCoe) + 'px';
+
+        //画面端でとまる
+        if (parseInt(viewImg.style.marginTop) > frameMargin) {
+            viewImg.style.marginTop = frameMargin + 'px';
+        } else if (parseInt(viewImg.style.marginTop) < (screen.height - viewImg.clientHeight - frameMargin)) {
+            viewImg.style.marginTop = (screen.height - viewImg.clientHeight - frameMargin) + 'px';
+        }
+        if (parseInt(viewImg.style.marginLeft) > frameMargin) {
+            viewImg.style.marginLeft = frameMargin + 'px';
+        } else if (parseInt(viewImg.style.marginLeft) < (screen.width - viewImg.clientWidth - frameMargin)) {
+            viewImg.style.marginLeft = (screen.width - viewImg.clientWidth - frameMargin) + 'px';
+        }
     }
 }
