@@ -155,12 +155,12 @@ const requestDeviceMotionPermission = (img) => {
             .then(permissionState => {
                 if (permissionState === 'granted') {
                     // 許可を得られた場合、devicemotionをイベントリスナーに追加
-                    window.addEventListener('devicemotion', e => {
+                    window.addEventListener('devicemotion', event => {
                         // devicemotionのイベント処理
-                        if (document.querySelector('#views img.viewImg') != null) {
-                            deviceMotion(e);
+                        if (document.querySelector('#views div.viewImg') != null) {
+                            deviceMotion(event);
                         }
-                    })
+                                })
                     viewMotion(img);
                 } else {
                     // 許可を得られなかった場合の処理
