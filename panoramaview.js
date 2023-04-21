@@ -35,35 +35,29 @@ document.addEventListener("DOMContentLoaded", function (event) {
     });
     document.getElementById("selmulti").addEventListener('change', function (event) {
         for (var i = 0; i < event.target.files.length; i++) {
+            var div = document.createElement("div");
             var el = document.createElement("img");
             el.src = window.URL.createObjectURL(event.target.files[i]);
+            div.appendChild(el);
             setImgEvent(el);
-            document.getElementById('views').insertBefore(el, document.querySelector("#views>button"));
-
+            document.getElementById('views').insertBefore(div, document.querySelector("#views>button"));
         }
-        navChange();
     });
     document.getElementById("next").addEventListener('click', function (event) {
-        if (viewPosition < (urls.length - 1)) {
-            viewPosition++;
-        }
-        //viewImg.src = urls[viewPosition];
+        let nextImg = document.querySelector('#views div.viewImg+div img');
+        document.getElementById("exit").click();
+        nextImg.click();
         buttonResetFadeout();
-        navChange()
     });
     document.getElementById("prev").addEventListener('click', function (event) {
-        if (viewPosition > 0) {
-            viewPosition--;
-        }
-        viewImg.src = urls[viewPosition];
-        navChange()
+        let prevImg = document.querySelector('#views div.viewImg').previousElementSibling.firstElementChild;
+        document.getElementById("exit").click();
+        prevImg.click();
         buttonResetFadeout();
     });
     document.getElementById("delete").addEventListener('click', function (event) {
-        event.target.remove();
-        if (document.fullscreenElement !== null) {
-            document.exitFullscreen();
-        }
+        document.querySelector('#views div.viewImg').remove();
+        document.getElementById("exit").click();
     });
 
     document.getElementById("exit").addEventListener('click', function (event) {
@@ -93,6 +87,7 @@ function setImgEvent(img) {
             } else {
                 viewMotion(img);
             }
+            navChange();
         }
     });
 }
@@ -100,7 +95,7 @@ function setImgEvent(img) {
 
 function viewMotion(img) {
     if (isSmartPhone() & !isiPhone()) {
-        document.documentElement.requestFullscreen();
+        //document.documentElement.requestFullscreen();
     }
     img.parentElement.classList.add('viewImg');
     buttonResetFadeout();
@@ -117,7 +112,7 @@ function adjustSize(img) {
     if (angle == 0) {
         mWidth = screen.height;
     }
-    
+
     if (img.naturalWidth > img.naturalHeight) {
         img.style.width = mWidth * (img.naturalWidth / img.naturalHeight) * 3 + 'px';
     } else {
@@ -182,20 +177,18 @@ const requestDeviceMotionPermission = (img) => {
 }
 
 function navChange() {
-    const length = document.querySelectorAll('#views img').length;
-    viewPosition = 0;
-    if ((viewPosition == 0) & (length <= (viewPosition + 1))) {
-        document.getElementById("prev").style.opacity = '0';
-        document.getElementById("next").style.opacity = '0';
-    } else if (viewPosition == 0) {
-        document.getElementById("prev").style.opacity = '0';
-        document.getElementById("next").style.opacity = '1';
-    } else if (length <= (viewPosition + 1)) {
-        document.getElementById("prev").style.opacity = '1';
-        document.getElementById("next").style.opacity = '0';
+    if (document.querySelector('#views div.viewImg+div img') == null) {
+        document.getElementById("next").classList.add('hidden');
     } else {
-        document.getElementById("prev").style.opacity = '1';
-        document.getElementById("next").style.opacity = '1';
+        document.getElementById("next").classList.remove('hidden');
+    }
+    if (document.querySelector('#views div.viewImg').previousElementSibling == null) {
+        document.getElementById("prev").classList.add('hidden');
+
+    } else if (document.querySelector('#views div.viewImg').previousElementSibling.firstElementChild == null) {
+        document.getElementById("prev").classList.add('hidden');
+    } else {
+        document.getElementById("prev").classList.remove('hidden');
     }
 }
 function buttonResetFadeout() {

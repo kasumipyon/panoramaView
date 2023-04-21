@@ -29,7 +29,7 @@ div.content {
 
 #views img {
     object-fit: contain;
-    transition: 0.2s transform;
+    transition: 0.2s rotate;
     width: 100%;
     height: 100%;
 }
@@ -71,7 +71,8 @@ div.buttons>* {
 
 div.buttons button {
     margin: 3px;
-
+    width: 100%;
+    height: 100%;
 }
 
 span.material-icons {
@@ -97,7 +98,7 @@ span.material-icons {
         max-width: 30%;
     }
 
-    div.buttons>button>* {
+    div.buttons>div>button>* {
         rotate: 90deg;
     }
 
