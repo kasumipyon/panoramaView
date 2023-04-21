@@ -222,20 +222,22 @@ function deviceMotion(event) {
     if (angle == 0 || angle == 180) {
         viewImg.style.marginLeft = parseInt(cStyle.marginLeft) + parseInt((event.rotationRate.beta) * nowCoe) + 'px';
         viewImg.style.marginTop = parseInt(cStyle.marginTop) + parseInt((event.rotationRate.alpha) * nowCoe) + 'px';
+
+        //画面端でとまる
+        const frameMargin = 30;
+        if (parseInt(viewImg.style.marginTop) > frameMargin) {
+            viewImg.style.marginTop = frameMargin + 'px';
+        } else if (parseInt(viewImg.style.marginTop) < (screen.width - viewImg.clientWidth - frameMargin)) {
+            viewImg.style.marginTop = (screen.width - viewImg.clientWidth - frameMargin) + 'px';
+        }
+        if (parseInt(viewImg.style.marginLeft) > frameMargin) {
+            viewImg.style.marginLeft = frameMargin + 'px';
+        } else if (parseInt(viewImg.style.marginLeft) < (screen.height - viewImg.clientHeight - frameMargin)) {
+            viewImg.style.marginLeft = (screen.height - viewImg.clientHeight - frameMargin) + 'px';
+        }
+
     } else {
         viewImg.style.marginLeft = parseInt(cStyle.marginLeft) + ((event.rotationRate.alpha) * nowCoe) + 'px';
         viewImg.style.marginTop = parseInt(cStyle.marginTop) - ((event.rotationRate.beta) * nowCoe) + 'px';
-    }
-    //画面端でとまる
-    const frameMargin = 30;
-    if (parseInt(viewImg.style.marginTop) > frameMargin) {
-        viewImg.style.marginTop = frameMargin + 'px';
-    } else if (parseInt(viewImg.style.marginTop) < (screen.height - viewImg.clientHeight)) {
-        viewImg.style.marginTop = (screen.height - viewImg.clientHeight) + 'px';
-    }
-    if (parseInt(viewImg.style.marginLeft) > 0) {
-        viewImg.style.marginLeft = '0px';
-    } else if (parseInt(viewImg.style.marginLeft) < (screen.width - viewImg.clientWidth)) {
-        viewImg.style.marginLeft = (screen.width - viewImg.clientWidth) + 'px';
     }
 }
