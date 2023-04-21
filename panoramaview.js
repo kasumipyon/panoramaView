@@ -116,9 +116,8 @@ function adjustSize(img) {
 
     if (angle == 0) {
         mWidth = screen.height;
-        img.style.translate = screen.width + 'px ' + '0px';
     }
-
+    
     if (img.naturalWidth > img.naturalHeight) {
         img.style.width = mWidth * (img.naturalWidth / img.naturalHeight) * 3 + 'px';
     } else {
@@ -126,8 +125,9 @@ function adjustSize(img) {
     }
 
     if (angle == 0) {
-        img.style.marginLeft = ((img.clientHeight - screen.height) / 2) * -1 + 'px';
-        img.style.marginTop = ((img.clientWidth - screen.width) / 2) * -1 + 'px';
+        img.style.translate = img.clientHeight + 'px ' + '0px';
+        img.style.marginTop = ((img.clientWidth - screen.height) / 2) * -1 + 'px';
+        img.style.marginLeft = ((img.clientHeight - screen.width) / 2) * -1 + 'px';
     } else {
         img.style.marginLeft = ((img.clientWidth - screen.width) / 2) * -1 + 'px';
         img.style.marginTop = ((img.clientHeight - screen.height) / 2) * -1 + 'px';
