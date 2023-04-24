@@ -45,13 +45,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
     });
     document.getElementById("next").addEventListener('click', function (event) {
         let nextImg = document.querySelector('#views div.viewImg+div img');
-        document.getElementById("exit").click();
+        exitImg();
         nextImg.click();
         buttonResetFadeout();
     });
     document.getElementById("prev").addEventListener('click', function (event) {
         let prevImg = document.querySelector('#views div.viewImg').previousElementSibling.firstElementChild;
-        document.getElementById("exit").click();
+        exitImg();
         prevImg.click();
         buttonResetFadeout();
     });
@@ -61,14 +61,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
     });
 
     document.getElementById("exit").addEventListener('click', function (event) {
-        const viewDiv = document.querySelector("div.viewImg");
-        const img = document.querySelector("div.viewImg img");
-        viewDiv.classList.remove('viewImg');
-        document.querySelector("div.buttons").classList.add('hidden');
-        img.style.width = null;
-        img.style.marginTop = null;
-        img.style.marginLeft = null;
-        img.style.translate = null;
+
+        exitImg();
         if (document.fullscreenElement !== null) {
             document.exitFullscreen();
         }
@@ -76,6 +70,18 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
 
 });
+
+function exitImg() {
+    const viewDiv = document.querySelector("div.viewImg");
+    const img = document.querySelector("div.viewImg img");
+    viewDiv.classList.remove('viewImg');
+    document.querySelector("div.buttons").classList.add('hidden');
+    img.style.width = null;
+    img.style.height = null;
+    img.style.marginTop = null;
+    img.style.marginLeft = null;
+    img.style.translate = null;
+}
 
 function setImgEvent(img) {
     img.addEventListener('click', function (event) {
@@ -94,8 +100,10 @@ function setImgEvent(img) {
 
 
 function viewMotion(img) {
-    if (isSmartPhone() & !isiPhone()) {
-        document.documentElement.requestFullscreen();
+    if (document.fullscreenElement === null) {
+        if (isSmartPhone() & !isiPhone()) {
+            document.documentElement.requestFullscreen();
+        }
     }
     img.parentElement.classList.add('viewImg');
     buttonResetFadeout();
