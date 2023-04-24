@@ -9,7 +9,7 @@ var buttonsOut;
 var isiPhoneFirst = true;
 document.addEventListener("DOMContentLoaded", function (event) {
 
-    var urls = ['sample.png','sample2.jpg'];
+    var urls = ['sample.png', 'sample2.jpg'];
     for (let i = 0; i < urls.length; i++) {
         var div = document.createElement("div");
         var el = document.createElement("img");
@@ -95,14 +95,14 @@ function setImgEvent(img) {
 
 function viewMotion(img) {
     if (isSmartPhone() & !isiPhone()) {
-        //document.documentElement.requestFullscreen();
+        document.documentElement.requestFullscreen();
     }
     img.parentElement.classList.add('viewImg');
     buttonResetFadeout();
-    adjustSize(img);
+    ajustSize(img);
 }
 
-function adjustSize(img) {
+function ajustSize(img) {
     let angle = screen && screen.orientation && screen.orientation.angle;
     if (angle === undefined) {
         angle = window.orientation;    // iOS用
@@ -114,28 +114,28 @@ function adjustSize(img) {
     }
 
     if (img.naturalWidth > img.naturalHeight) {
-	    if (angle == 0) {
-	        img.style.height = screen.width * 2 + 'px';
-		} else {
-	        img.style.height = screen.height * 2 + 'px';
-		}
-		img.style.width = "auto";
+        if (angle == 0) {
+            img.style.height = screen.width * 2 + 'px';
+        } else {
+            img.style.height = screen.height * 2 + 'px';
+        }
+        img.style.width = "auto";
     } else {
-	    if (angle == 0) {
-	        img.style.width = screen.height * 2 + 'px';
-		} else {
-	        img.style.width = screen.width * 2 + 'px';
-		}
-		img.style.height = "auto";
+        if (angle == 0) {
+            img.style.width = screen.height * 2 + 'px';
+        } else {
+            img.style.width = screen.width * 2 + 'px';
+        }
+        img.style.height = "auto";
     }
-
+    img.style.marginTop = '0'
     if (angle == 0) {
         img.style.translate = img.clientHeight + 'px ' + '0px';
-        img.style.marginTop = ((img.clientWidth - screen.height) / 2) * -1 + 'px';
-        img.style.marginLeft = ((img.clientHeight - screen.width) / 2) * -1 + 'px';
+        img.style.marginTop = parseInt((img.clientWidth - screen.height) / 2) * -1 + 'px';
+        img.style.marginLeft = parseInt((img.clientHeight - screen.width) / 2) * -1 + 'px';
     } else {
-        img.style.marginLeft = ((img.clientWidth - screen.width) / 2) * -1 + 'px';
-        img.style.marginTop = ((img.clientHeight - screen.height) / 2) * -1 + 'px';
+        img.style.marginLeft = parseInt((img.clientWidth - screen.width) / 2) * -1 + 'px';
+        img.style.marginTop = parseInt((img.clientHeight - screen.height) / 2) * -1 + 'px';
 
     }
 }
@@ -170,7 +170,7 @@ const requestDeviceMotionPermission = (img) => {
                         if (document.querySelector('#views div.viewImg') != null) {
                             deviceMotion(event);
                         }
-                                })
+                    })
                     viewMotion(img);
                 } else {
                     // 許可を得られなかった場合の処理
@@ -222,7 +222,7 @@ function deviceMotion(event) {
     if (angle == 0 || angle == 180) {
         viewImg.style.marginLeft = parseInt(cStyle.marginLeft) + parseInt((event.rotationRate.beta) * nowCoe) + 'px';
         viewImg.style.marginTop = parseInt(cStyle.marginTop) + parseInt((event.rotationRate.alpha) * nowCoe) + 'px';
-        /*
+
         //画面端でとまる
         if (parseInt(viewImg.style.marginTop) > frameMargin) {
             viewImg.style.marginTop = frameMargin + 'px';
@@ -234,7 +234,6 @@ function deviceMotion(event) {
         } else if (parseInt(viewImg.style.marginLeft) < (screen.width - viewImg.clientHeight - frameMargin)) {
             viewImg.style.marginLeft = (screen.width - viewImg.clientHeight - frameMargin) + 'px';
         }
-        */
 
     } else {
         viewImg.style.marginLeft = parseInt(cStyle.marginLeft) + ((event.rotationRate.alpha) * nowCoe) + 'px';
