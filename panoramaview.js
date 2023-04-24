@@ -9,7 +9,7 @@ var buttonsOut;
 var isiPhoneFirst = true;
 document.addEventListener("DOMContentLoaded", function (event) {
 
-    var urls = ['sample.png'];
+    var urls = ['sample.png','sample2.jpg'];
     for (let i = 0; i < urls.length; i++) {
         var div = document.createElement("div");
         var el = document.createElement("img");
@@ -95,7 +95,7 @@ function setImgEvent(img) {
 
 function viewMotion(img) {
     if (isSmartPhone() & !isiPhone()) {
-        document.documentElement.requestFullscreen();
+        //document.documentElement.requestFullscreen();
     }
     img.parentElement.classList.add('viewImg');
     buttonResetFadeout();
@@ -103,20 +103,30 @@ function viewMotion(img) {
 }
 
 function adjustSize(img) {
-    var mWidth = screen.width;
     let angle = screen && screen.orientation && screen.orientation.angle;
     if (angle === undefined) {
         angle = window.orientation;    // iOS用
     }
 
+    var mWidth = screen.width;
     if (angle == 0) {
         mWidth = screen.height;
     }
 
     if (img.naturalWidth > img.naturalHeight) {
-        img.style.width = mWidth * (img.naturalWidth / img.naturalHeight) * 3 + 'px';
+	    if (angle == 0) {
+	        img.style.height = screen.width * 2 + 'px';
+		} else {
+	        img.style.height = screen.height * 2 + 'px';
+		}
+		img.style.width = "auto";
     } else {
-        img.style.width = mWidth * 2 + 'px';
+	    if (angle == 0) {
+	        img.style.width = screen.height * 2 + 'px';
+		} else {
+	        img.style.width = screen.width * 2 + 'px';
+		}
+		img.style.height = "auto";
     }
 
     if (angle == 0) {
@@ -212,7 +222,7 @@ function deviceMotion(event) {
     if (angle == 0 || angle == 180) {
         viewImg.style.marginLeft = parseInt(cStyle.marginLeft) + parseInt((event.rotationRate.beta) * nowCoe) + 'px';
         viewImg.style.marginTop = parseInt(cStyle.marginTop) + parseInt((event.rotationRate.alpha) * nowCoe) + 'px';
-
+        /*
         //画面端でとまる
         if (parseInt(viewImg.style.marginTop) > frameMargin) {
             viewImg.style.marginTop = frameMargin + 'px';
@@ -224,6 +234,7 @@ function deviceMotion(event) {
         } else if (parseInt(viewImg.style.marginLeft) < (screen.width - viewImg.clientHeight - frameMargin)) {
             viewImg.style.marginLeft = (screen.width - viewImg.clientHeight - frameMargin) + 'px';
         }
+        */
 
     } else {
         viewImg.style.marginLeft = parseInt(cStyle.marginLeft) + ((event.rotationRate.alpha) * nowCoe) + 'px';
