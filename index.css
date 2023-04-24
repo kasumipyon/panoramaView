@@ -49,6 +49,7 @@ div.content {
 #views div.viewImg img {
     height: auto;
     transform-origin: top left;
+    display: block;
 }
 
 #move {
