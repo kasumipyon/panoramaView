@@ -116,9 +116,9 @@ function setImgEvent(img) {
             if (event.target.parentElement.classList.contains('viewImg')) {
                 touchX = event.screenX;
                 touchY = event.screenY;
-                if (e.touches.length >= 2) {
-                    const p1 = e.touches[0];
-                    const p2 = e.touches[1];
+                if (e.changedTouches.length >= 2) {
+                    const p1 = e.changedTouches[0];
+                    const p2 = e.changedTouches[1];
                     touchDist = Math.abs(p1.pageX - p2.pageX) + Math.abs(p1.pageY - p2.pageY);
                 } else {
                     touchDist = null;
