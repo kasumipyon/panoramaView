@@ -154,12 +154,11 @@ function setImgEvent(img) {
                             const p2 = e.changedTouches[1];
                             const scale = touchDist / (Math.abs(p1.pageX - p2.pageX) + Math.abs(p1.pageY - p2.pageY));
                             if (img.naturalWidth > img.naturalHeight) {
-                                img.style.height = parseFloat(img.width) * scale + 'px';
+                                img.style.height = parseFloat(img.height) * scale + 'px';
                             } else {
                                 img.style.width = parseFloat(img.width) * scale + 'px';
                             }
                         }
-
                         touchDist = Math.abs(p1.pageX - p2.pageX) + Math.abs(p1.pageY - p2.pageY);
 
 
