@@ -119,7 +119,7 @@ function setImgEvent(img) {
                 if (e.changedTouches.length >= 2) {
                     const p1 = e.changedTouches[0];
                     const p2 = e.changedTouches[1];
-                    touchDist = Math.abs(p1.pageX - p2.pageX) + Math.abs(p1.pageY - p2.pageY);
+                    touchDist = Math.sqrt(Math.pow(p2.pageX - p1.pageX, 2) + Math.pow(p2.pageY - p1.pageY, 2));
 
                 } else {
                     //touchDist = null;
@@ -154,7 +154,7 @@ function setImgEvent(img) {
                         if (touchDist != null) {
                             const p1 = e.changedTouches[0];
                             const p2 = e.changedTouches[1];
-                            const scale = touchDist / (Math.abs(p1.pageX - p2.pageX) + Math.abs(p1.pageY - p2.pageY));
+                            const scale = touchDist / (Math.sqrt(Math.pow(p2.pageX - p1.pageX, 2) + Math.pow(p2.pageY - p1.pageY, 2)));
                             img.style.marginLeft = '0px';
                             if (img.naturalWidth > img.naturalHeight) {
                                 img.style.height = img.clientHeight * 1.2 + 'px';
@@ -163,7 +163,7 @@ function setImgEvent(img) {
                                 img.style.width = img.clientHeight * scale + 'px';
                             }
                         }
-                        touchDist = Math.abs(p1.pageX - p2.pageX) + Math.abs(p1.pageY - p2.pageY);
+                        touchDist = Math.sqrt(Math.pow(p2.pageX - p1.pageX, 2) + Math.pow(p2.pageY - p1.pageY, 2));
                     } else {
                         const cStyle = window.getComputedStyle(img);
                         img.style.marginLeft = parseFloat(cStyle.marginLeft) + (event.screenX - touchX) + 'px';
