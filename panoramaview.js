@@ -111,14 +111,14 @@ function setImgEvent(img) {
             if (e.type === "mousedown") {
                 var event = e;
             } else {
-                var event = e.changedTouches[0];
+                var event = e.touches[0];
             }
             if (event.target.parentElement.classList.contains('viewImg')) {
                 touchX = event.screenX;
                 touchY = event.screenY;
-                if (e.changedTouches.length >= 2) {
-                    const p1 = e.changedTouches[0];
-                    const p2 = e.changedTouches[1];
+                if (e.touches.length >= 2) {
+                    const p1 = e.touches[0];
+                    const p2 = e.touches[1];
                     touchDist = Math.sqrt(Math.pow(p2.pageX - p1.pageX, 2) + Math.pow(p2.pageY - p1.pageY, 2));
 
                 } else {
@@ -145,15 +145,15 @@ function setImgEvent(img) {
             if (e.type === "mousemove") {
                 var event = e;
             } else {
-                var event = e.changedTouches[0];
+                var event = e.touches [0];
             }
             if (event.target.parentElement.classList.contains('viewImg')) {
                 if (event.target.classList.contains('drag')) {
                     const img = event.target;
-                    if (e.changedTouches.length >= 2) {
+                    if (e.touches.length >= 2) {
                         if (touchDist != null) {
-                            const p1 = e.changedTouches[0];
-                            const p2 = e.changedTouches[1];
+                            const p1 = e.touches[0];
+                            const p2 = e.touches[1];
                             const scale = touchDist / (Math.sqrt(Math.pow(p2.pageX - p1.pageX, 2) + Math.pow(p2.pageY - p1.pageY, 2)));
                             img.style.marginLeft = '0px';
                             if (img.naturalWidth > img.naturalHeight) {
