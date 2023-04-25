@@ -105,7 +105,7 @@ function setImgEvent(img) {
 
     ['mousedown', 'touchstart'].forEach(function (item) {
         img.addEventListener(item, function (e) {
-            e.preventDefault();
+            //e.preventDefault();
             if (e.type === "mousedown") {
                 var event = e;
             } else {
@@ -119,7 +119,6 @@ function setImgEvent(img) {
 
     ['mouseup', 'mouseleave', 'touchend', 'touchleave'].forEach(function (item) {
         img.addEventListener(item, function (e) {
-            e.preventDefault();
             let drag = document.querySelector('.drag')
             if (drag != null) {
                 drag.classList.remove('drag');
