@@ -7,6 +7,7 @@ MIT licence
 const moveCoe = 1;
 var buttonsOut;
 var isiPhoneFirst = true;
+
 document.addEventListener("DOMContentLoaded", function (event) {
 
     var urls = ['sample.png', 'sample2.jpg'];
@@ -101,6 +102,53 @@ function setImgEvent(img) {
             navChange();
         }
     });
+
+    ['mousedown', 'touchstart'].forEach(function (item) {
+        img.addEventListener(item, function (e) {
+            if (e.type === "mousedown") {
+                var event = e;
+            } else {
+                var event = e.changedTouches[0];
+            }
+            if (event.target.parentElement.classList.contains('viewImg')) {
+                event.target.classList.add('drag');
+            }
+        })
+    });
+
+    ['mouseup', 'mouseleave', 'touchend', 'touchleave'].forEach(function (item) {
+        img.addEventListener(item, function (e) {
+            let drag = document.querySelector('.drag')
+            if (drag != null) {
+                drag.classList.remove('drag');
+            }
+        })
+    });
+
+    ['mousemove', 'touchmove'].forEach(function (item) {
+        img.addEventListener(item, function (e) {
+            e.preventDefault();
+            if (e.type === "mousemove") {
+                var event = e;
+            } else {
+                var event = e.changedTouches[0];
+            }
+            if (event.target.parentElement.classList.contains('viewImg')) {
+                if (event.target.classList.contains('drag')) {
+                    const cStyle = window.getComputedStyle(event.target);
+                    let angle = screen && screen.orientation && screen.orientation.angle;
+                    if (angle === undefined) {
+                        angle = window.orientation;    // iOS用
+                    }
+                    if (event.movementX != null) {
+                        event.target.style.marginLeft = parseFloat(cStyle.marginLeft) + event.movementX + 'px';
+                        event.target.style.marginTop = parseFloat(cStyle.marginTop) + event.movementY + 'px';
+                    }
+                }
+            }
+        });
+    })
+
 }
 
 
