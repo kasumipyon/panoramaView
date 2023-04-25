@@ -145,7 +145,7 @@ function setImgEvent(img) {
             if (e.type === "mousemove") {
                 var event = e;
             } else {
-                var event = e.touches [0];
+                var event = e.touches[0];
             }
             if (event.target.parentElement.classList.contains('viewImg')) {
                 if (event.target.classList.contains('drag')) {
@@ -154,7 +154,7 @@ function setImgEvent(img) {
                         if (touchDist != null) {
                             const p1 = e.touches[0];
                             const p2 = e.touches[1];
-                            const scale = touchDist / (Math.sqrt(Math.pow(p2.pageX - p1.pageX, 2) + Math.pow(p2.pageY - p1.pageY, 2)));
+                            const scale = (Math.sqrt(Math.pow(p2.pageX - p1.pageX, 2) + Math.pow(p2.pageY - p1.pageY, 2))) / touchDist;
                             if (img.naturalWidth > img.naturalHeight) {
                                 img.style.height = img.clientHeight * scale + 'px';
                             } else {
