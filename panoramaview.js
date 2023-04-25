@@ -7,7 +7,8 @@ MIT licence
 const moveCoe = 1;
 var buttonsOut;
 var isiPhoneFirst = true;
-
+var dragX;
+var dragY;
 document.addEventListener("DOMContentLoaded", function (event) {
 
     var urls = ['sample.png', 'sample2.jpg'];
@@ -112,6 +113,8 @@ function setImgEvent(img) {
                 var event = e.changedTouches[0];
             }
             if (event.target.parentElement.classList.contains('viewImg')) {
+                dragX = event.screenX;
+                dragY = event.screenY;
                 event.target.classList.add('drag');
             }
         })
@@ -141,10 +144,10 @@ function setImgEvent(img) {
                     if (angle === undefined) {
                         angle = window.orientation;    // iOS用
                     }
-                    if (event.movementX != null) {
-                        event.target.style.marginLeft = parseFloat(cStyle.marginLeft) + event.movementX + 'px';
-                        event.target.style.marginTop = parseFloat(cStyle.marginTop) + event.movementY + 'px';
-                    }
+                    event.target.style.marginLeft = parseFloat(cStyle.marginLeft) + (event.screenX - dragX) + 'px';
+                    event.target.style.marginTop = parseFloat(cStyle.marginTop) + (event.screenY - dragY) + 'px';
+                    dragX = event.screenX;
+                    dragY = event.screenY;
                 }
             }
         });
