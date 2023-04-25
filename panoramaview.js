@@ -67,6 +67,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
             document.exitFullscreen();
         }
     });
+    document.querySelector("div.buttons").addEventListener('transitionend', function (event) {
+        if (event.target.classList.contains('fadeout')) {
+            event.target.classList.add('hidden');
+        }
+    });
 
 
 });
@@ -101,7 +106,7 @@ function setImgEvent(img) {
 
 function viewMotion(img) {
     if (document.fullscreenElement === null) {
-        if (isSmartPhone() & !isiPhone()) {
+        if (!location.href.startsWith('file')) {
             document.documentElement.requestFullscreen();
         }
     }
@@ -228,8 +233,8 @@ function deviceMotion(event) {
     const frameMargin = 30;
     //let nowCoe = 5;
     if (angle == 0 || angle == 180) {
-        viewImg.style.marginLeft = parseInt(cStyle.marginLeft) + parseInt((event.rotationRate.beta) * nowCoe) + 'px';
-        viewImg.style.marginTop = parseInt(cStyle.marginTop) + parseInt((event.rotationRate.alpha) * nowCoe) + 'px';
+        viewImg.style.marginLeft = parseFloat(cStyle.marginLeft) + ((event.rotationRate.beta) * nowCoe) + 'px';
+        viewImg.style.marginTop = parseFloat(cStyle.marginTop) + ((event.rotationRate.alpha) * nowCoe) + 'px';
 
         //画面端でとまる
         if (parseInt(viewImg.style.marginTop) > frameMargin) {
@@ -244,8 +249,8 @@ function deviceMotion(event) {
         }
 
     } else {
-        viewImg.style.marginLeft = parseInt(cStyle.marginLeft) + ((event.rotationRate.alpha) * nowCoe) + 'px';
-        viewImg.style.marginTop = parseInt(cStyle.marginTop) - ((event.rotationRate.beta) * nowCoe) + 'px';
+        viewImg.style.marginLeft = parseFloat(cStyle.marginLeft) + ((event.rotationRate.alpha) * nowCoe) + 'px';
+        viewImg.style.marginTop = parseFloat(cStyle.marginTop) - ((event.rotationRate.beta) * nowCoe) + 'px';
 
         //画面端でとまる
         if (parseInt(viewImg.style.marginTop) > frameMargin) {

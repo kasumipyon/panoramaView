@@ -16,10 +16,10 @@ div.content {
 
 #views {
     display: flex;
+    flex-flow: wrap row;
 }
 
 #views>* {
-    flex: 1;
     margin: 2px;
     border-radius: 0;
     border: none;
@@ -44,6 +44,7 @@ div.content {
     right: 0;
     z-index: 0;
     overflow: hidden;
+    width: auto;
 }
 
 #views div.viewImg img {
@@ -104,7 +105,8 @@ span.material-icons {
     }
 
     #views>* {
-        max-width: 30%;
+        max-width: 23%;
+        width: 23%;
     }
 
     #views div.viewImg>img {
