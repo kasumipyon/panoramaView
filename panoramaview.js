@@ -157,7 +157,8 @@ function setImgEvent(img) {
                             const scale = touchDist / (Math.abs(p1.pageX - p2.pageX) + Math.abs(p1.pageY - p2.pageY));
                             img.style.marginLeft = '0px';
                             if (img.naturalWidth > img.naturalHeight) {
-                                img.style.height = img.clientHeight * scale + 'px';
+                                img.style.height = img.clientHeight * 1.2 + 'px';
+                                //img.style.height = img.clientHeight * scale + 'px';
                             } else {
                                 img.style.width = img.clientHeight * scale + 'px';
                             }
