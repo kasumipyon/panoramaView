@@ -7,8 +7,9 @@ MIT licence
 const moveCoe = 1;
 var buttonsOut;
 var isiPhoneFirst = true;
-var dragX;
-var dragY;
+var touchX;
+var touchY;
+var touchDist;
 document.addEventListener("DOMContentLoaded", function (event) {
 
     var urls = ['sample.png', 'sample2.jpg'];
@@ -113,8 +114,15 @@ function setImgEvent(img) {
                 var event = e.changedTouches[0];
             }
             if (event.target.parentElement.classList.contains('viewImg')) {
-                dragX = event.screenX;
-                dragY = event.screenY;
+                touchX = event.screenX;
+                touchY = event.screenY;
+                if (e.touches.length >= 2) {
+                    const p1 = e.touches[0];
+                    const p2 = e.touches[1];
+                    touchDist = Math.abs(p1.pageX - p2.pageX) + Math.abs(p1.pageY - p2.pageY);
+                } else {
+                    touchDist = null;
+                }
                 event.target.classList.add('drag');
             }
         })
@@ -139,15 +147,32 @@ function setImgEvent(img) {
             }
             if (event.target.parentElement.classList.contains('viewImg')) {
                 if (event.target.classList.contains('drag')) {
-                    const cStyle = window.getComputedStyle(event.target);
-                    let angle = screen && screen.orientation && screen.orientation.angle;
-                    if (angle === undefined) {
-                        angle = window.orientation;    // iOS用
+                    const img = event.target;
+                    if (e.changedTouches.length >= 2) {
+                        const p1 = e.changedTouches[0];
+                        const p2 = e.changedTouches[1];
+                        const scale = touchDist - (Math.abs(p1.pageX - p2.pageX) + Math.abs(p1.pageY - p2.pageY));
+
+                        touchDist = Math.abs(p1.pageX - p2.pageX) + Math.abs(p1.pageY - p2.pageY);
+
+                        if (img.naturalWidth > img.naturalHeight) {
+                            img.style.height = parseFloat(img.width) * touchDist + 'px';
+                        } else {
+                            img.style.width = parseFloat(img.width) * touchDist + 'px';
+                        }
+
+                    } else {
+                        const cStyle = window.getComputedStyle(img);
+                        img.style.marginLeft = parseFloat(cStyle.marginLeft) + (event.screenX - touchX) + 'px';
+                        img.style.marginTop = parseFloat(cStyle.marginTop) + (event.screenY - touchY) + 'px';
+                        touchX = event.screenX;
+                        touchY = event.screenY;
                     }
-                    event.target.style.marginLeft = parseFloat(cStyle.marginLeft) + (event.screenX - dragX) + 'px';
-                    event.target.style.marginTop = parseFloat(cStyle.marginTop) + (event.screenY - dragY) + 'px';
-                    dragX = event.screenX;
-                    dragY = event.screenY;
+
+
+
+
+
                 }
             }
         });
