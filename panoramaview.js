@@ -165,9 +165,9 @@ function setImgEvent(img) {
 
                             }
                             if (img.naturalWidth > img.naturalHeight) {
-                                img.style.height = parseFloat(img.style.height) * scale + 'px';
+                                img.style.height = img.clientHeight * scale + 'px';
                             } else {
-                                img.style.width = parseFloat(img.style.width) * scale + 'px';
+                                img.style.width = img.clientHeight * scale + 'px';
                             }
                         }
                         touchDist = Math.abs(p1.pageX - p2.pageX) + Math.abs(p1.pageY - p2.pageY);
