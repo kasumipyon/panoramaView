@@ -117,13 +117,9 @@ function setImgEvent(img) {
                 touchX = event.screenX;
                 touchY = event.screenY;
                 if (e.changedTouches.length >= 2) {
-                    if (e.scale != null) {
-                        touchDist = e.scale;
-                    } else {
-                        const p1 = e.changedTouches[0];
-                        const p2 = e.changedTouches[1];
-                        touchDist = Math.abs(p1.pageX - p2.pageX) + Math.abs(p1.pageY - p2.pageY);
-                    }
+                    const p1 = e.changedTouches[0];
+                    const p2 = e.changedTouches[1];
+                    touchDist = Math.abs(p1.pageX - p2.pageX) + Math.abs(p1.pageY - p2.pageY);
 
                 } else {
                     //touchDist = null;
@@ -156,14 +152,9 @@ function setImgEvent(img) {
                     const img = event.target;
                     if (e.changedTouches.length >= 2) {
                         if (touchDist != null) {
-                            if (e.scale != null) {
-                                const scale = e.scale;
-                            } else {
-                                const p1 = e.changedTouches[0];
-                                const p2 = e.changedTouches[1];
-                                const scale = touchDist / (Math.abs(p1.pageX - p2.pageX) + Math.abs(p1.pageY - p2.pageY));
-
-                            }
+                            const p1 = e.changedTouches[0];
+                            const p2 = e.changedTouches[1];
+                            const scale = touchDist / (Math.abs(p1.pageX - p2.pageX) + Math.abs(p1.pageY - p2.pageY));
                             if (img.naturalWidth > img.naturalHeight) {
                                 img.style.height = img.clientHeight * scale + 'px';
                             } else {
