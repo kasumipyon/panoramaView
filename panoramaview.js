@@ -157,7 +157,7 @@ function setImgEvent(img) {
                     if (e.changedTouches.length >= 2) {
                         if (touchDist != null) {
                             if (e.scale != null) {
-                                const scale = e.scale * touchDist;
+                                const scale = e.scale;
                             } else {
                                 const p1 = e.changedTouches[0];
                                 const p2 = e.changedTouches[1];
@@ -165,9 +165,9 @@ function setImgEvent(img) {
 
                             }
                             if (img.naturalWidth > img.naturalHeight) {
-                                img.style.height = parseFloat(img.height) * scale + 'px';
+                                img.style.height = parseFloat(img.style.height) * scale + 'px';
                             } else {
-                                img.style.width = parseFloat(img.width) * scale + 'px';
+                                img.style.width = parseFloat(img.style.width) * scale + 'px';
                             }
                         }
                         touchDist = Math.abs(p1.pageX - p2.pageX) + Math.abs(p1.pageY - p2.pageY);
