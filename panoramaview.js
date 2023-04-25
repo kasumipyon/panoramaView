@@ -149,17 +149,19 @@ function setImgEvent(img) {
                 if (event.target.classList.contains('drag')) {
                     const img = event.target;
                     if (e.changedTouches.length >= 2) {
-                        const p1 = e.changedTouches[0];
-                        const p2 = e.changedTouches[1];
-                        const scale = touchDist - (Math.abs(p1.pageX - p2.pageX) + Math.abs(p1.pageY - p2.pageY));
+                        if (touchDist != null) {
+                            const p1 = e.changedTouches[0];
+                            const p2 = e.changedTouches[1];
+                            const scale = touchDist / (Math.abs(p1.pageX - p2.pageX) + Math.abs(p1.pageY - p2.pageY));
+                            if (img.naturalWidth > img.naturalHeight) {
+                                img.style.height = parseFloat(img.width) * scale + 'px';
+                            } else {
+                                img.style.width = parseFloat(img.width) * scale + 'px';
+                            }
+                        }
 
                         touchDist = Math.abs(p1.pageX - p2.pageX) + Math.abs(p1.pageY - p2.pageY);
 
-                        if (img.naturalWidth > img.naturalHeight) {
-                            img.style.height = parseFloat(img.width) * touchDist + 'px';
-                        } else {
-                            img.style.width = parseFloat(img.width) * touchDist + 'px';
-                        }
 
                     } else {
                         const cStyle = window.getComputedStyle(img);
