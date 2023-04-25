@@ -126,7 +126,7 @@ function setImgEvent(img) {
                     }
 
                 } else {
-                    touchDist = null;
+                    //touchDist = null;
                 }
                 event.target.classList.add('drag');
             }
@@ -138,6 +138,7 @@ function setImgEvent(img) {
             let drag = document.querySelector('.drag')
             if (drag != null) {
                 drag.classList.remove('drag');
+                touchDist = null;
             }
         })
     });
@@ -170,8 +171,6 @@ function setImgEvent(img) {
                             }
                         }
                         touchDist = Math.abs(p1.pageX - p2.pageX) + Math.abs(p1.pageY - p2.pageY);
-
-
                     } else {
                         const cStyle = window.getComputedStyle(img);
                         img.style.marginLeft = parseFloat(cStyle.marginLeft) + (event.screenX - touchX) + 'px';
@@ -179,11 +178,6 @@ function setImgEvent(img) {
                         touchX = event.screenX;
                         touchY = event.screenY;
                     }
-
-
-
-
-
                 }
             }
         });
