@@ -157,8 +157,26 @@ function setImgEvent(img) {
                             const scale = (Math.sqrt(Math.pow(p2.pageX - p1.pageX, 2) + Math.pow(p2.pageY - p1.pageY, 2))) / touchDist;
                             if (img.naturalWidth > img.naturalHeight) {
                                 img.style.height = img.clientHeight * scale + 'px';
+                                let wHeight = screen.height;
+                                if (getDevideAngle() == 0) {
+                                    wHeight = scale.width;
+                                }
+                                if (parseFloat(img.style.height) < wHeight) {
+                                    img.style.height = wHeight + 'px';
+                                } else if (parseFloat(img.style.height) > (wHeight * 10)) {
+                                    img.style.height = wHeight * 10 + 'px';
+                                }
                             } else {
                                 img.style.width = img.clientHeight * scale + 'px';
+                                let wWidth = screen.width;
+                                if (getDevideAngle() == 0) {
+                                    wWidth = screen.height;
+                                }
+                                if (parseFloat(img.style.width) < wWidth) {
+                                    img.style.width = wWidth + 'px';
+                                } else if (parseFloat(img.style.width) > (wWidth * 10)) {
+                                    img.style.width = wWidth * 10 + 'px';
+                                }
                             }
                         }
                         touchDist = Math.sqrt(Math.pow(p2.pageX - p1.pageX, 2) + Math.pow(p2.pageY - p1.pageY, 2));
@@ -189,15 +207,7 @@ function viewMotion(img) {
 }
 
 function ajustSize(img) {
-    let angle = screen && screen.orientation && screen.orientation.angle;
-    if (angle === undefined) {
-        angle = window.orientation;    // iOS用
-    }
-
-    var mWidth = screen.width;
-    if (angle == 0) {
-        mWidth = screen.height;
-    }
+    let angle = getDevideAngle();
 
     if (img.naturalWidth > img.naturalHeight) {
         if (angle == 0) {
@@ -224,6 +234,14 @@ function ajustSize(img) {
         img.style.marginTop = parseInt((img.clientHeight - screen.height) / 2) * -1 + 'px';
 
     }
+}
+
+function getDevideAngle() {
+    let angle = screen && screen.orientation && screen.orientation.angle;
+    if (angle === undefined) {
+        angle = window.orientation; // iOS用
+    }
+    return angle;
 }
 
 function isiPhone() {
@@ -298,15 +316,10 @@ function deviceMotion(event) {
         const cStyle = window.getComputedStyle(viewImg);
         //move.innerText = event.acceleration.x + "/" + event.acceleration.y;
 
-        let angle = screen && screen.orientation && screen.orientation.angle;
-        if (angle === undefined) {
-            angle = window.orientation;    // iOS用
-        }
-
         let nowCoe = (moveCoe * (document.body.clientWidth / window.innerWidth)) * 0.3;
         const frameMargin = 30;
         //let nowCoe = 5;
-        if (angle == 0 || angle == 180) {
+        if (getDevideAngle() == 0) {
             viewImg.style.marginLeft = parseFloat(cStyle.marginLeft) + ((event.rotationRate.beta) * nowCoe) + 'px';
             viewImg.style.marginTop = parseFloat(cStyle.marginTop) + ((event.rotationRate.alpha) * nowCoe) + 'px';
 
