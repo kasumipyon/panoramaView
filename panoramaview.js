@@ -160,6 +160,7 @@ function setImgEvent(img) {
                                 let wHeight = screen.height;
                                 if (getDevideAngle() == 0) {
                                     wHeight = scale.width;
+                                    img.style.translate = img.clientHeight + 'px ' + '0px';
                                 }
                                 if (parseFloat(img.style.height) < wHeight) {
                                     img.style.height = wHeight + 'px';
