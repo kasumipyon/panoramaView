@@ -119,7 +119,7 @@ function setImgEvent(img) {
                 if (e.touches.length >= 2) {
                     const p1 = e.touches[0];
                     const p2 = e.touches[1];
-                    touchDist = Math.sqrt(Math.pow(p2.pageX - p1.pageX, 2) + Math.pow(p2.pageY - p1.pageY, 2));
+                    touchDist = getDist(p2, p1);
 
                 } else {
                     //touchDist = null;
@@ -154,12 +154,12 @@ function setImgEvent(img) {
                         if (touchDist != null) {
                             const p1 = e.touches[0];
                             const p2 = e.touches[1];
-                            const scale = (Math.sqrt(Math.pow(p2.pageX - p1.pageX, 2) + Math.pow(p2.pageY - p1.pageY, 2))) / touchDist;
+                            const scale = getDist(p2, p1) / touchDist;
                             if (img.naturalWidth > img.naturalHeight) {
                                 img.style.height = img.clientHeight * scale + 'px';
                                 let wHeight = screen.height;
                                 if (getDevideAngle() == 0) {
-                                    wHeight = scale.width;
+                                    wHeight = screen.width;
                                 }
                                 if (parseFloat(img.style.height) < wHeight) {
                                     img.style.height = wHeight + 'px';
@@ -183,7 +183,7 @@ function setImgEvent(img) {
                                 }
                             }
                         }
-                        touchDist = Math.sqrt(Math.pow(p2.pageX - p1.pageX, 2) + Math.pow(p2.pageY - p1.pageY, 2));
+                        touchDist = getDist(p2, p1);
                     } else {
                         const cStyle = window.getComputedStyle(img);
                         img.style.marginLeft = parseFloat(cStyle.marginLeft) + (event.screenX - touchX) + 'px';
@@ -198,6 +198,10 @@ function setImgEvent(img) {
 
 }
 
+
+function getDist(p2, p1) {
+    return Math.sqrt(Math.pow(p2.pageX - p1.pageX, 2) + Math.pow(p2.pageY - p1.pageY, 2));
+}
 
 function viewMotion(img) {
     if (document.fullscreenElement === null) {
