@@ -12,7 +12,7 @@ var touchY;
 var touchDist;
 document.addEventListener("DOMContentLoaded", function (event) {
 
-    var urls = ['sample.png', 'sample2.jpg'];
+    var urls = ['sample2.jpg', 'sample.png'];
     for (let i = 0; i < urls.length; i++) {
         var div = document.createElement("div");
         var el = document.createElement("img");
@@ -295,18 +295,21 @@ const requestDeviceMotionPermission = (img) => {
 }
 
 function navChange() {
-    if (document.querySelector('#views div.viewImg+div img') == null) {
-        document.getElementById("next").classList.add('hidden');
-    } else {
-        document.getElementById("next").classList.remove('hidden');
-    }
-    if (document.querySelector('#views div.viewImg').previousElementSibling == null) {
-        document.getElementById("prev").classList.add('hidden');
+    if (document.querySelector('#views div.viewImg') != null) {
+        if (document.querySelector('#views div.viewImg+div img') == null) {
+            document.getElementById("next").classList.add('hidden');
+        } else {
+            document.getElementById("next").classList.remove('hidden');
+        }
+        if (document.querySelector('#views div.viewImg').previousElementSibling == null) {
+            document.getElementById("prev").classList.add('hidden');
 
-    } else if (document.querySelector('#views div.viewImg').previousElementSibling.firstElementChild == null) {
-        document.getElementById("prev").classList.add('hidden');
-    } else {
-        document.getElementById("prev").classList.remove('hidden');
+        } else if (document.querySelector('#views div.viewImg').previousElementSibling.firstElementChild == null) {
+            document.getElementById("prev").classList.add('hidden');
+        } else {
+            document.getElementById("prev").classList.remove('hidden');
+        }
+
     }
 }
 function buttonResetFadeout() {

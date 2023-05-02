@@ -29,7 +29,7 @@ div.content {
 
 #views img {
     object-fit: contain;
-    transition: 0.2s rotate;
+    transition: 0.2s rotate,width,height;
     width: 100%;
     height: 100%;
 }
