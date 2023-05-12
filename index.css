@@ -119,7 +119,7 @@ span.material-icons {
         top: 0;
         right: 0;
         text-align: right;
-        flex-direction: column;
+        flex-direction: column-reverse;
     }
 
     div.buttons>* {
