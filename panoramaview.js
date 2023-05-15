@@ -157,7 +157,6 @@ function setImgEvent(img) {
                             const scale = getDist(p2, p1) / touchDist;
                             if (img.naturalWidth > img.naturalHeight) {
                                 img.style.height = img.clientHeight * scale + 'px';
-                                /*
                                 let wHeight = screen.height;
                                 if (getDevideAngle() == 0) {
                                     wHeight = screen.width;
@@ -167,13 +166,11 @@ function setImgEvent(img) {
                                 } else if (parseFloat(img.style.height) > (wHeight * 10)) {
                                     img.style.height = wHeight * 10 + 'px';
                                 }
-                                */
                                 if (getDevideAngle() == 0) {
                                     img.style.translate = img.clientHeight + 'px ' + '0px';
                                 }
                             } else {
                                 img.style.width = img.clientWidth * scale + 'px';
-                                /*
                                 let wWidth = screen.width;
                                 if (getDevideAngle() == 0) {
                                     wWidth = screen.height;
@@ -183,7 +180,6 @@ function setImgEvent(img) {
                                 } else if (parseFloat(img.style.width) > (wWidth * 10)) {
                                     img.style.width = wWidth * 10 + 'px';
                                 }
-                                */
                             }
                         }
                         touchDist = getDist(p2, p1);
