@@ -182,6 +182,7 @@ function setImgEvent(img) {
                                 let wWidth = screen.width;
                                 if (getDevideAngle() == 0) {
                                     wWidth = screen.height;
+                                    img.style.translate = img.clientHeight + 'px ' + '0px';
                                 }
                                 if (parseFloat(img.style.width) < wWidth) {
                                     img.style.width = wWidth + 'px';
