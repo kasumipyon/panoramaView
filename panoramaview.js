@@ -13,7 +13,7 @@ var firstDist;
 var firstWidth;
 document.addEventListener("DOMContentLoaded", function (event) {
 
-    var urls = ['sample2.jpg', 'sample.png'];
+    var urls = ['sample2.jpg', 'sample.png', 'P3200576.JPG', 'waganeko.png'];
     for (let i = 0; i < urls.length; i++) {
         var div = document.createElement("div");
         var el = document.createElement("img");
