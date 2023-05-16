@@ -9,7 +9,8 @@ var buttonsOut;
 var isiPhoneFirst = true;
 var touchX;
 var touchY;
-var touchDist;
+var firstDist;
+var firstWidth;
 document.addEventListener("DOMContentLoaded", function (event) {
 
     var urls = ['sample2.jpg', 'sample.png'];
@@ -116,13 +117,20 @@ function setImgEvent(img) {
             if (event.target.parentElement.classList.contains('viewImg')) {
                 touchX = event.screenX;
                 touchY = event.screenY;
+                const img = event.target;
                 if (e.touches.length >= 2) {
                     const p1 = e.touches[0];
                     const p2 = e.touches[1];
-                    touchDist = getDist(p2, p1);
+                    firstDist = getDist(p2, p1);
+                    if (img.naturalWidth > img.naturalHeight) {
+                        firstWidth = img.clientHeight;
+                    } else {
+                        firstWidth = img.clientWidth;
 
+                    }
                 } else {
-                    //touchDist = null;
+                    firstDist = null;
+                    firstWidth = null;
                 }
                 event.target.classList.add('drag');
             }
@@ -134,7 +142,7 @@ function setImgEvent(img) {
             let drag = document.querySelector('.drag')
             if (drag != null) {
                 drag.classList.remove('drag');
-                touchDist = null;
+                firstDist = null;
             }
         })
     });
@@ -151,12 +159,12 @@ function setImgEvent(img) {
                 if (event.target.classList.contains('drag')) {
                     const img = event.target;
                     if (e.touches.length >= 2) {
-                        if (touchDist != null) {
+                        if (firstDist != null) {
                             const p1 = e.touches[0];
                             const p2 = e.touches[1];
-                            const scale = getDist(p2, p1) / touchDist / window.devicePixelRatio;
+                            const scale = getDist(p2, p1) / firstDist;
                             if (img.naturalWidth > img.naturalHeight) {
-                                img.style.height = img.clientHeight * scale + 'px';
+                                img.style.height = firstWidth * scale + 'px';
                                 let wHeight = screen.height;
                                 if (getDevideAngle() == 0) {
                                     wHeight = screen.width;
@@ -170,7 +178,7 @@ function setImgEvent(img) {
                                     img.style.translate = img.clientHeight + 'px ' + '0px';
                                 }
                             } else {
-                                img.style.width = img.clientWidth * scale + 'px';
+                                img.style.width = firstWidth * scale + 'px';
                                 let wWidth = screen.width;
                                 if (getDevideAngle() == 0) {
                                     wWidth = screen.height;
@@ -182,7 +190,7 @@ function setImgEvent(img) {
                                 }
                             }
                         }
-                        touchDist = getDist(p2, p1);
+                        //firstDist = getDist(p2, p1);
                     } else {
                         const cStyle = window.getComputedStyle(img);
                         img.style.marginLeft = parseFloat(cStyle.marginLeft) + (event.screenX - touchX) + 'px';
