@@ -154,7 +154,7 @@ function setImgEvent(img) {
                         if (touchDist != null) {
                             const p1 = e.touches[0];
                             const p2 = e.touches[1];
-                            const scale = getDist(p2, p1) / touchDist;
+                            const scale = getDist(p2, p1) / touchDist / window.devicePixelRatio;
                             if (img.naturalWidth > img.naturalHeight) {
                                 img.style.height = img.clientHeight * scale + 'px';
                                 let wHeight = screen.height;
